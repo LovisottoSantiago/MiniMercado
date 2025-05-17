@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MiniMercado")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e988d7563169de5774b22cc8b62e8355f6eca58e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3653182fdb70e1cd1f103df391f368ab046e2210")]
 [assembly: System.Reflection.AssemblyProductAttribute("MiniMercado")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MiniMercado")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

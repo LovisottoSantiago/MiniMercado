@@ -2,7 +2,27 @@
   "Files": [
     {
       "Id": "/home/lovi/Documents/Github/MiniMercado/obj/Debug/net8.0/scopedcss/projectbundle/MiniMercado.bundle.scp.css",
-      "PackagePath": "staticwebassets/MiniMercado.jsxy3aira4.bundle.scp.css"
+      "PackagePath": "staticwebassets/MiniMercado.q1ig6bun5m.bundle.scp.css"
+    },
+    {
+      "Id": "/home/lovi/Documents/Github/MiniMercado/wwwroot/Img/box.png",
+      "PackagePath": "staticwebassets/Img/box.png"
+    },
+    {
+      "Id": "/home/lovi/Documents/Github/MiniMercado/wwwroot/Img/building.png",
+      "PackagePath": "staticwebassets/Img/building.png"
+    },
+    {
+      "Id": "/home/lovi/Documents/Github/MiniMercado/wwwroot/Img/epifania-market.png",
+      "PackagePath": "staticwebassets/Img/epifania-market.png"
+    },
+    {
+      "Id": "/home/lovi/Documents/Github/MiniMercado/wwwroot/Img/user.png",
+      "PackagePath": "staticwebassets/Img/user.png"
+    },
+    {
+      "Id": "/home/lovi/Documents/Github/MiniMercado/wwwroot/css/MainMenu.css",
+      "PackagePath": "staticwebassets/css/MainMenu.css"
     },
     {
       "Id": "/home/lovi/Documents/Github/MiniMercado/wwwroot/css/site.css",

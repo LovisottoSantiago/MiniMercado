@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "zUlI1CCg0OPrSqLO60WFhIECU5A0qAq8y78+72+eOPA=",
+  "Hash": "3sWJlKL8x/gvsCZouhMHaya5+2lv9s9/k+uuC4PaioI=",
   "Source": "MiniMercado",
   "BasePath": "_content/MiniMercado",
   "Mode": "Default",
@@ -31,8 +31,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ApplicationBundle",
-      "Fingerprint": "jsxy3aira4",
-      "Integrity": "kwoaQHJA8yN1Mv5isw76RVUtVKBVaj43ZtGkJxhJDkU=",
+      "Fingerprint": "q1ig6bun5m",
+      "Integrity": "os4cu0h4G5CIWx3svUPsqChxTuWDdcVyajv0ANShrLA=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/home/lovi/Documents/Github/MiniMercado/obj/Debug/net8.0/scopedcss/bundle/MiniMercado.styles.css"
@@ -52,11 +52,32 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ProjectBundle",
-      "Fingerprint": "jsxy3aira4",
-      "Integrity": "kwoaQHJA8yN1Mv5isw76RVUtVKBVaj43ZtGkJxhJDkU=",
+      "Fingerprint": "q1ig6bun5m",
+      "Integrity": "os4cu0h4G5CIWx3svUPsqChxTuWDdcVyajv0ANShrLA=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/home/lovi/Documents/Github/MiniMercado/obj/Debug/net8.0/scopedcss/projectbundle/MiniMercado.bundle.scp.css"
+    },
+    {
+      "Identity": "/home/lovi/Documents/Github/MiniMercado/wwwroot/css/MainMenu.css",
+      "SourceId": "MiniMercado",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/lovi/Documents/Github/MiniMercado/wwwroot/",
+      "BasePath": "_content/MiniMercado",
+      "RelativePath": "css/MainMenu#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "v44uwrlehd",
+      "Integrity": "kVMOwWsRIoXwqw2PCdfPViW92ROjoIYhgFsTAQR7iBs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/MainMenu.css"
     },
     {
       "Identity": "/home/lovi/Documents/Github/MiniMercado/wwwroot/css/site.css",
@@ -99,6 +120,90 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/favicon.ico"
+    },
+    {
+      "Identity": "/home/lovi/Documents/Github/MiniMercado/wwwroot/Img/box.png",
+      "SourceId": "MiniMercado",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/lovi/Documents/Github/MiniMercado/wwwroot/",
+      "BasePath": "_content/MiniMercado",
+      "RelativePath": "Img/box#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2phsaktf1w",
+      "Integrity": "lvLEHe+DZAB5FWGk9Rlpj/BfniPLgwVF1V9QWem1wug=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Img/box.png"
+    },
+    {
+      "Identity": "/home/lovi/Documents/Github/MiniMercado/wwwroot/Img/building.png",
+      "SourceId": "MiniMercado",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/lovi/Documents/Github/MiniMercado/wwwroot/",
+      "BasePath": "_content/MiniMercado",
+      "RelativePath": "Img/building#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "k3odz8gr07",
+      "Integrity": "QJ7N9sIWOrQV/celnPoe8FktcURZhycUWDU93W1bLao=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Img/building.png"
+    },
+    {
+      "Identity": "/home/lovi/Documents/Github/MiniMercado/wwwroot/Img/epifania-market.png",
+      "SourceId": "MiniMercado",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/lovi/Documents/Github/MiniMercado/wwwroot/",
+      "BasePath": "_content/MiniMercado",
+      "RelativePath": "Img/epifania-market#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "6tv9cc9u4f",
+      "Integrity": "SlUt0A4187A7EWotLQihAwmBU9i3B/HqxNTcP2bnleE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Img/epifania-market.png"
+    },
+    {
+      "Identity": "/home/lovi/Documents/Github/MiniMercado/wwwroot/Img/user.png",
+      "SourceId": "MiniMercado",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/lovi/Documents/Github/MiniMercado/wwwroot/",
+      "BasePath": "_content/MiniMercado",
+      "RelativePath": "Img/user#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "eoqi30f9qs",
+      "Integrity": "cpU5WlOAEXHH79T3ny7XXD1LTJCrIEDOyc3fQyS09L8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Img/user.png"
     },
     {
       "Identity": "/home/lovi/Documents/Github/MiniMercado/wwwroot/js/site.js",
@@ -1321,6 +1426,88 @@
   ],
   "Endpoints": [
     {
+      "Route": "css/MainMenu.css",
+      "AssetFile": "/home/lovi/Documents/Github/MiniMercado/wwwroot/css/MainMenu.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1454"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"kVMOwWsRIoXwqw2PCdfPViW92ROjoIYhgFsTAQR7iBs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 17 May 2025 18:16:41 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-kVMOwWsRIoXwqw2PCdfPViW92ROjoIYhgFsTAQR7iBs="
+        }
+      ]
+    },
+    {
+      "Route": "css/MainMenu.v44uwrlehd.css",
+      "AssetFile": "/home/lovi/Documents/Github/MiniMercado/wwwroot/css/MainMenu.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1454"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"kVMOwWsRIoXwqw2PCdfPViW92ROjoIYhgFsTAQR7iBs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 17 May 2025 18:16:41 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "v44uwrlehd"
+        },
+        {
+          "Name": "label",
+          "Value": "css/MainMenu.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-kVMOwWsRIoXwqw2PCdfPViW92ROjoIYhgFsTAQR7iBs="
+        }
+      ]
+    },
+    {
       "Route": "css/site.css",
       "AssetFile": "/home/lovi/Documents/Github/MiniMercado/wwwroot/css/site.css",
       "Selectors": [],
@@ -1481,6 +1668,334 @@
         {
           "Name": "integrity",
           "Value": "sha256-Jtxf9L+5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM="
+        }
+      ]
+    },
+    {
+      "Route": "Img/box.2phsaktf1w.png",
+      "AssetFile": "/home/lovi/Documents/Github/MiniMercado/wwwroot/Img/box.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1632"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"lvLEHe+DZAB5FWGk9Rlpj/BfniPLgwVF1V9QWem1wug=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 17 May 2025 18:04:04 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2phsaktf1w"
+        },
+        {
+          "Name": "label",
+          "Value": "Img/box.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-lvLEHe+DZAB5FWGk9Rlpj/BfniPLgwVF1V9QWem1wug="
+        }
+      ]
+    },
+    {
+      "Route": "Img/box.png",
+      "AssetFile": "/home/lovi/Documents/Github/MiniMercado/wwwroot/Img/box.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1632"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"lvLEHe+DZAB5FWGk9Rlpj/BfniPLgwVF1V9QWem1wug=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 17 May 2025 18:04:04 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-lvLEHe+DZAB5FWGk9Rlpj/BfniPLgwVF1V9QWem1wug="
+        }
+      ]
+    },
+    {
+      "Route": "Img/building.k3odz8gr07.png",
+      "AssetFile": "/home/lovi/Documents/Github/MiniMercado/wwwroot/Img/building.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1895"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"QJ7N9sIWOrQV/celnPoe8FktcURZhycUWDU93W1bLao=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 17 May 2025 18:03:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "k3odz8gr07"
+        },
+        {
+          "Name": "label",
+          "Value": "Img/building.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-QJ7N9sIWOrQV/celnPoe8FktcURZhycUWDU93W1bLao="
+        }
+      ]
+    },
+    {
+      "Route": "Img/building.png",
+      "AssetFile": "/home/lovi/Documents/Github/MiniMercado/wwwroot/Img/building.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1895"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"QJ7N9sIWOrQV/celnPoe8FktcURZhycUWDU93W1bLao=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 17 May 2025 18:03:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-QJ7N9sIWOrQV/celnPoe8FktcURZhycUWDU93W1bLao="
+        }
+      ]
+    },
+    {
+      "Route": "Img/epifania-market.6tv9cc9u4f.png",
+      "AssetFile": "/home/lovi/Documents/Github/MiniMercado/wwwroot/Img/epifania-market.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3649"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SlUt0A4187A7EWotLQihAwmBU9i3B/HqxNTcP2bnleE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 17 May 2025 18:29:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "6tv9cc9u4f"
+        },
+        {
+          "Name": "label",
+          "Value": "Img/epifania-market.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-SlUt0A4187A7EWotLQihAwmBU9i3B/HqxNTcP2bnleE="
+        }
+      ]
+    },
+    {
+      "Route": "Img/epifania-market.png",
+      "AssetFile": "/home/lovi/Documents/Github/MiniMercado/wwwroot/Img/epifania-market.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3649"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SlUt0A4187A7EWotLQihAwmBU9i3B/HqxNTcP2bnleE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 17 May 2025 18:29:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-SlUt0A4187A7EWotLQihAwmBU9i3B/HqxNTcP2bnleE="
+        }
+      ]
+    },
+    {
+      "Route": "Img/user.eoqi30f9qs.png",
+      "AssetFile": "/home/lovi/Documents/Github/MiniMercado/wwwroot/Img/user.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1219"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"cpU5WlOAEXHH79T3ny7XXD1LTJCrIEDOyc3fQyS09L8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 17 May 2025 17:59:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "eoqi30f9qs"
+        },
+        {
+          "Name": "label",
+          "Value": "Img/user.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-cpU5WlOAEXHH79T3ny7XXD1LTJCrIEDOyc3fQyS09L8="
+        }
+      ]
+    },
+    {
+      "Route": "Img/user.png",
+      "AssetFile": "/home/lovi/Documents/Github/MiniMercado/wwwroot/Img/user.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1219"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"cpU5WlOAEXHH79T3ny7XXD1LTJCrIEDOyc3fQyS09L8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 17 May 2025 17:59:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-cpU5WlOAEXHH79T3ny7XXD1LTJCrIEDOyc3fQyS09L8="
         }
       ]
     },
@@ -6251,7 +6766,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1080"
+          "Value": "2255"
         },
         {
           "Name": "Content-Type",
@@ -6259,11 +6774,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"kwoaQHJA8yN1Mv5isw76RVUtVKBVaj43ZtGkJxhJDkU=\""
+          "Value": "\"os4cu0h4G5CIWx3svUPsqChxTuWDdcVyajv0ANShrLA=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 May 2025 19:00:12 GMT"
+          "Value": "Sat, 17 May 2025 16:57:12 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6273,12 +6788,12 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-kwoaQHJA8yN1Mv5isw76RVUtVKBVaj43ZtGkJxhJDkU="
+          "Value": "sha256-os4cu0h4G5CIWx3svUPsqChxTuWDdcVyajv0ANShrLA="
         }
       ]
     },
     {
-      "Route": "MiniMercado.jsxy3aira4.bundle.scp.css",
+      "Route": "MiniMercado.q1ig6bun5m.bundle.scp.css",
       "AssetFile": "/home/lovi/Documents/Github/MiniMercado/obj/Debug/net8.0/scopedcss/projectbundle/MiniMercado.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -6288,7 +6803,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1080"
+          "Value": "2255"
         },
         {
           "Name": "Content-Type",
@@ -6296,11 +6811,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"kwoaQHJA8yN1Mv5isw76RVUtVKBVaj43ZtGkJxhJDkU=\""
+          "Value": "\"os4cu0h4G5CIWx3svUPsqChxTuWDdcVyajv0ANShrLA=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 May 2025 19:00:12 GMT"
+          "Value": "Sat, 17 May 2025 16:57:12 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6310,7 +6825,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "jsxy3aira4"
+          "Value": "q1ig6bun5m"
         },
         {
           "Name": "label",
@@ -6318,12 +6833,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-kwoaQHJA8yN1Mv5isw76RVUtVKBVaj43ZtGkJxhJDkU="
+          "Value": "sha256-os4cu0h4G5CIWx3svUPsqChxTuWDdcVyajv0ANShrLA="
         }
       ]
     },
     {
-      "Route": "MiniMercado.jsxy3aira4.styles.css",
+      "Route": "MiniMercado.q1ig6bun5m.styles.css",
       "AssetFile": "/home/lovi/Documents/Github/MiniMercado/obj/Debug/net8.0/scopedcss/bundle/MiniMercado.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -6333,7 +6848,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1080"
+          "Value": "2255"
         },
         {
           "Name": "Content-Type",
@@ -6341,11 +6856,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"kwoaQHJA8yN1Mv5isw76RVUtVKBVaj43ZtGkJxhJDkU=\""
+          "Value": "\"os4cu0h4G5CIWx3svUPsqChxTuWDdcVyajv0ANShrLA=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 May 2025 19:00:12 GMT"
+          "Value": "Sat, 17 May 2025 16:57:12 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6355,7 +6870,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "jsxy3aira4"
+          "Value": "q1ig6bun5m"
         },
         {
           "Name": "label",
@@ -6363,7 +6878,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-kwoaQHJA8yN1Mv5isw76RVUtVKBVaj43ZtGkJxhJDkU="
+          "Value": "sha256-os4cu0h4G5CIWx3svUPsqChxTuWDdcVyajv0ANShrLA="
         }
       ]
     },
@@ -6378,7 +6893,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1080"
+          "Value": "2255"
         },
         {
           "Name": "Content-Type",
@@ -6386,11 +6901,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"kwoaQHJA8yN1Mv5isw76RVUtVKBVaj43ZtGkJxhJDkU=\""
+          "Value": "\"os4cu0h4G5CIWx3svUPsqChxTuWDdcVyajv0ANShrLA=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 May 2025 19:00:12 GMT"
+          "Value": "Sat, 17 May 2025 16:57:12 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6400,7 +6915,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-kwoaQHJA8yN1Mv5isw76RVUtVKBVaj43ZtGkJxhJDkU="
+          "Value": "sha256-os4cu0h4G5CIWx3svUPsqChxTuWDdcVyajv0ANShrLA="
         }
       ]
     }
