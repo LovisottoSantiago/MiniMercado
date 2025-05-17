@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MiniMercado.Data;
 using MiniMercado.Models;
 
 namespace MiniMercado.Controllers
@@ -7,15 +9,20 @@ namespace MiniMercado.Controllers
     public class StockScreen : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly AppDbContext _context;
 
-        public StockScreen(ILogger<HomeController> logger)
+        public StockScreen(ILogger<HomeController> logger, AppDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var productos = _context.Productos
+            .OrderBy(p => p.Nombre) 
+            .ToList();
+            return View(productos);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

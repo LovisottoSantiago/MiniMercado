@@ -1,8 +1,40 @@
+@model IEnumerable<MiniMercado.Models.Producto>
+
 @{
-    ViewData["Title"] = "Stock";
+    ViewData["Title"] = "Gestión de Stock";
     Layout = "~/Views/Shared/_StockScreenLayout.cshtml";
 }
 
-<div class="main-container">
-    <h1>Hola Mundo</h1>
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Gestión de Stock</h2>
+    <a class="btn btn-success" asp-controller="Producto" asp-action="Create">Agregar Producto</a>
+    <div class="table-container" style="max-height:50rem; overflow-y: auto;">
+    <table class="table table-striped table-hover table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Stock</th>
+                <th>Precio Unitario</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.IdProducto)</td>
+                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Stock)</td>
+                <td>@Html.DisplayFor(modelItem => item.PrecioUnitario)</td>
+                <td>
+                    <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.IdProducto">Editar</a>
+                    <a class="btn btn-sm btn-info text-white" asp-action="Details" asp-route-id="@item.IdProducto">Detalles</a>
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.IdProducto">Eliminar</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    </div>
 </div>
