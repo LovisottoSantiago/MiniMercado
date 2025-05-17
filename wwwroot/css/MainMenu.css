@@ -46,6 +46,7 @@ section.main-menu {
     position: relative;
     overflow: hidden;
     transition: all 0.5s ease;
+    cursor: pointer;
 }
 
 

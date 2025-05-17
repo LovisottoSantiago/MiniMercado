@@ -128,6 +128,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/lovi/Documents/Github/MiniMercado/Views/StockScreen/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3RvY2tTY3JlZW4vSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/lovi/Documents/Github/MiniMercado/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -143,3 +147,7 @@ build_metadata.AdditionalFiles.CssScope = b-uvw3d0rwzj
 [/home/lovi/Documents/Github/MiniMercado/Views/Shared/_MainLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19NYWluTGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = b-0gspwlsnec
+
+[/home/lovi/Documents/Github/MiniMercado/Views/Shared/_StockScreenLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19TdG9ja1NjcmVlbkxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = b-y77vqp51te
