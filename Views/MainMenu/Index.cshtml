@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Main Menu";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<div class="main-container">
+    <section itemid="main-menu" class="main-menu">
+
+        <div class="card-container">
+            <a class="nav-link text-dark" asp-area="" asp-controller="CierreCajaScreen" asp-action="Index">            
+                <div class="card" id="card-1">
+                    <img src="@Url.Content("~/Img/user.png")"  alt="user">
+                    <h3>Cierre de caja</h3>
+                </div>
+            </a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="StockScreen" asp-action="Index">
+                <div class="card" id="card-2">
+                    <img src="@Url.Content("~/Img/building.png")"  alt="building">
+                    <h3 >Stock</h3>
+                </div>
+            </a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="StockScreen" asp-action="Index">
+                <div class="card" id="card-3">
+                    <img src="@Url.Content("~/Img/box.png")"  alt="box">
+                    <h3>Comenzar venta</h3>
+                </div>
+            </a>
+        </div>
+        
+    </section>
+</div>

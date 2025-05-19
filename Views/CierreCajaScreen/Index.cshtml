@@ -1,0 +1,86 @@
+@model IEnumerable<MiniMercado.Models.Factura>
+
+@{
+    ViewData["Title"] = "Cierre de Caja";
+    Layout = "~/Views/Shared/_CierreCajaLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="container-chad">
+        <div class="table-container" style="max-height:50rem; overflow-y: auto;">
+        <div class="titulo-tabla">
+            <h2 class="mb-4 text-center">Facturas</h2>
+            <div class="input-group mb-4">
+                <input type="text" id="busquedaFacturas" class="form-control rounded-pill text-center" placeholder="Toque para buscar facturas...">
+            </div>
+        </div>
+
+        <div class="tabla-wrapper">
+            <table class="table table-striped table-hover table-bordered">
+                <thead class="table-white">
+                    <tr>
+                        <th>Código de la Factura</th>
+                        <th>Fecha y hora</th>
+                        <th>Tipo de venta</th>
+                        <th>Monto</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="fila-factura">
+                        <td>@Html.DisplayFor(modelItem => item.IdFactura)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Fecha)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FormaPago)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Total)</td>
+                        <td class="acciones">
+                            <a class="btn btn-sm btn-primary" asp-controller="Factura" asp-action="Edit" asp-route-id="@item.IdFactura">Editar</a>
+                            <a class="btn btn-sm btn-info" asp-controller="Factura" asp-action="Details" asp-route-id="@item.IdFactura">Detalles</a>
+                            <a class="btn btn-sm btn-danger" asp-controller="Factura" asp-action="Delete" asp-route-id="@item.IdFactura">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+        </div>
+
+        <div class="container-ventas-padre">
+            <div class="container-ventas">
+                <h2>Cierre de Caja</h2>
+                <hr>
+                <p>Total Efectivo:</p>
+                <h1>$28.000</h1>
+                <hr>
+                <p>Total Mercado Pago</p>
+                <h1>$12.000</h1>
+            </div>
+            <div class="total-dinero">
+                <h3>Total</h3>
+                <h1>$420.000</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const filas = document.querySelectorAll(".fila-factura");
+
+        filas.forEach(fila => {
+            fila.addEventListener("click", function () {
+                document.querySelectorAll(".acciones").forEach(acc => acc.style.visibility = "hidden");
+                filas.forEach(f => f.classList.remove("selected"));
+
+                const acciones = this.querySelector(".acciones");
+                if (acciones) {
+                    acciones.style.visibility = "visible";
+                    acciones.style.width = "auto";
+                    acciones.style.margin = "auto";
+                    this.classList.add("selected");
+                }
+            });
+        });
+    });
+</script>

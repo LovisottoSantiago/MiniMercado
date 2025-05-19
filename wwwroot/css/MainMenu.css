@@ -1,0 +1,104 @@
+
+.main-container {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+    padding: 2.5rem 0rem 2.5rem 0rem;
+}
+
+section.main-menu {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+    width: 50rem;
+    height: 25rem;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2.25rem;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #ffffff;
+    background-clip: border-box;
+    border: .0625rem solid rgba(0, 0, 0, .125);
+    border-radius: 1rem;
+    box-shadow: .0625rem 0rem .625rem .25rem #00000024;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    row-gap: 1rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+}
+
+.card:hover {
+  transform: scale(1.025);  
+}
+
+.card:hover::before {
+  opacity: 1;
+  transform: rotate(-45deg) translateY(100%);
+}
+
+div#card-1, #card-2 {
+    width: 15.625rem;
+    height: 10.9375rem;
+}
+
+div#card-3 {
+    width: 31.25rem;
+    height: 10.9375rem;
+}
+  
+
+div#caja-izq {
+  column-gap: 1rem;
+}
+
+.btn-secondary {
+  color: #090909;
+  background-color: #F1F1F1; 
+  border-color: #F1F1F1; 
+  width: 7.5rem;
+  border-radius: 3.75rem;
+  height: 3rem;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+
+
+

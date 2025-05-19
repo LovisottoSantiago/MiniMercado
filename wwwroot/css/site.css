@@ -1,0 +1,67 @@
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+
+h1, h2, h3, h4, h5, h6, a, p {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #222; 
+}
+
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 28.8px;
+}
+
+h3 {
+  font-size: 25.6px;
+}
+
+h4 {
+  font-size: 24px;
+}
+
+h5 {
+  font-size: 20px;
+}
+
+h6 {
+  font-size: 16px;
+}
+
+a {
+  font-size: 22.4px;
+}
+
+
+
+@media (min-width: 48rem) {
+  html {
+    font-size: 1rem;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 1.6px white, 0 0 0 4px #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 3.75rem;
+}
+
+
+
