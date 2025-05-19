@@ -11,6 +11,28 @@
     font-weight: bold;
 }
 
+.salir {
+    display: flex;
+    gap: 1rem;
+    align-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+a#btn-escanear {
+    width: 13rem;
+    border: none;
+}
+
+a#btn-escanear:hover {
+    background-color: #1A85FF;
+    border: none;
+}
+
+.salir:hover img#img-escanear {
+    filter: invert(100%);
+}
 
 .container-chad {
     display: flex;
@@ -93,11 +115,13 @@ a#precio-manual {
     border-radius: 20rem;
     font-size: 1.1rem;
     border: none;
+    transition: all 0.2s ease-in-out;
 }
 
 a#precio-manual:hover {
     background-color: #034a9b;
     border: none;
+    transition: all 0.2s ease-in-out;
 }
 
 a#agregar-producto {
@@ -174,9 +198,14 @@ div#carrito-ventas-container {
     flex-direction: column;
     flex-wrap: nowrap;
     align-content: center;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    max-width: 30rem;
+    padding: .8rem;
+    max-width: 26rem;
+    height: 30rem;
+    background-color: #EDEDED;
+    border-radius: 1.5rem;
+    box-shadow: .0625rem 0rem .625rem .25rem #00000024;
 }
 
 div#carrito-ventas-container h2 {
@@ -185,7 +214,7 @@ div#carrito-ventas-container h2 {
 }
 
 .tabla-wrapper-ventas {
-    max-height: 15rem;
+    max-height: 16rem;
     overflow-y: auto;
     box-sizing: border-box;
     display: flex;
@@ -252,3 +281,144 @@ th#columna-total {
 }
 
 
+.sub-total {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+
+.dashed {
+    border: none;
+    height: 2px;
+    width: -webkit-fill-available;
+    color: black;
+    background: repeating-linear-gradient(90deg, #000, #000 6px, transparent 6px, transparent 12px);
+}
+
+.venta-btn {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    width: 20rem;
+    border-radius: 1rem;
+    height: 4rem;
+    margin: 0 auto;
+    background-color: black;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+
+.venta-btn h2 {
+    color: white;
+    margin: 0;
+}
+
+.venta-btn:hover {
+    background-color: #333333;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.sub-total-txt {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    margin: 5px 0 0 0;
+    align-content: center;
+    align-items: stretch;
+}
+
+.vaciar-btn {
+    background-color: #c7c7c7;
+    width: 4.4rem;
+    vertical-align: middle;
+    height: 2rem;
+    text-align: center;
+    border-radius: 0.9em;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+
+.vaciar-btn:hover {
+    background-color: #6b6b6b;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.vaciar-btn:hover p{
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+p#vaciar-txt {
+    margin: auto;
+}
+
+@media (max-width: 1024px) {
+    .container-chad {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        row-gap: 2rem;
+    }
+
+    .table-container {
+        width: 90vw;
+    }
+
+    table.table.table-striped.table-hover.table-bordered {
+        width: 100%;
+        font-size: 0.85rem;
+    }
+
+    div#carrito-ventas-container {
+        width: 90vw;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .venta-btn {
+        width: 100%;
+        max-width: 20rem;
+        height: 6rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .input-group.mb-4 {
+        max-width: 100%;
+    }
+
+    .titulo-tabla {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .venta-btn h2 {
+        font-size: 1.4rem;
+    }
+
+    div#carrito-ventas-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .table-container {
+        padding: 1rem;
+    }
+}

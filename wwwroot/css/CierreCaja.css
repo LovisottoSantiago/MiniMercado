@@ -92,7 +92,11 @@ a.btn.btn-sm:hover{
   align-content: center;
   justify-content: center;
   align-items: center;
+  border-width: medium;
+  padding: 1rem;
   justify-items: center;
+  border-radius: 1rem;
+  border-style: solid;
 }
 
 
