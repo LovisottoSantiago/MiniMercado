@@ -31,7 +31,54 @@
     flex-direction: column;
     align-content: center;
   }
+
+  #actionContainer{
+    display: none;
+     position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    max-width: 800px;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+  }
+
+  .actionContainer-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .actionContainer-title{
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .close-actionContainer{
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer
+  }
+  .actionContainer-body{
+    margin-top: 20px;
+    font-size: 1rem;
+  }
   
+  #actionContainerBackdrop{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
   table.table.table-striped.table-hover.table-bordered {
     margin-bottom: 0rem;
     vertical-align: middle;
