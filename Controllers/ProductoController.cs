@@ -82,7 +82,7 @@ namespace MiniMercado.Controllers
             {
                 return NotFound();
             }
-            ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "IdProveedor", producto.Proveedor);
+            ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre", producto.Proveedor);
             return View(producto);
         }
 
@@ -118,7 +118,7 @@ namespace MiniMercado.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "IdProveedor", producto.Proveedor);
+            ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre", producto.Proveedor);
             return View(producto);
         }
 
@@ -154,6 +154,21 @@ namespace MiniMercado.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult EditarParcial(int id)
+        {
+            var producto = _context.Producto.FirstOrDefault(p => p.IdProducto == id);
+            if (producto == null)
+                {
+                    return NotFound();
+                }
+
+    // Cargamos los proveedores en el ViewBag si el formulario los necesita
+            ViewBag.Proveedor = new SelectList(_context.Proveedor, "Id", "Nombre", producto.Proveedor);
+
+    // Devolvemos la partial view con el modelo
+            return PartialView("_EditarProductoPartial", producto);
         }
 
         private bool ProductoExists(int id)
