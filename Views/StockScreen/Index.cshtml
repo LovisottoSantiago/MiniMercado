@@ -25,6 +25,7 @@
                             <th>Nombre</th>
                             <th>Stock</th>
                             <th>Precio Unitario</th>
+                            <th>Proveedor</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -36,6 +37,7 @@
                             <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
                             <td>@Html.DisplayFor(modelItem => item.Stock)</td>
                             <td>@Html.DisplayFor(modelItem => item.PrecioUnitario)</td>
+                            <td>@item.ProveedorNavigation?.Nombre)</td>
                             <td class="acciones">
                                 <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.IdProducto">Editar</a>
                                 <a class="btn btn-sm btn-info text-white" asp-action="Details" asp-route-id="@item.IdProducto">Detalles</a>

@@ -20,8 +20,8 @@ namespace MiniMercado.Controllers
         public IActionResult Index()
         {
             var productos = _context.Producto
-            .OrderBy(p => p.Nombre) 
-            .ToList();
+                .Include(p => p.ProveedorNavigation) // Incluye la relación
+                .ToList();
             return View(productos);
         }
 
