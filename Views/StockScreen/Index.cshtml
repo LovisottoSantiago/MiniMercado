@@ -39,7 +39,7 @@
                             <td>@Html.DisplayFor(modelItem => item.PrecioUnitario)</td>
                             <td>@item.ProveedorNavigation?.Nombre</td>
                             <td class="acciones">
-                                <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.IdProducto">Editar</a>
+                                <a class="btn btn-sm btn-warning" asp-route-id="@item.IdProducto">Editar</a>
                                 <a class="btn btn-sm btn-info text-white" asp-action="Details" asp-route-id="@item.IdProducto">Detalles</a>
                                 <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.IdProducto">Eliminar</a>
                             </td>
@@ -51,26 +51,18 @@
         </div>
     </div>
 </div>
+<!-- Modal para mostrar las acciones -->
+<div id="actionContainer" >
+    <div class="actionContainer-header">
+        <h5 class="actionContainer-title">Título del Modal</h5>
+        <button type="button" class="close-actionContainer" >&times;</button>
+    </div>
+    <div class="actionContainer-body">
+        <!-- Aquí se cargará el contenido dinámico -->
+    </div>
+</div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const filas = document.querySelectorAll(".fila-producto");
-
-        filas.forEach(fila => {
-            fila.addEventListener("click", function () {
-                document.querySelectorAll(".acciones").forEach(acc => acc.style.visibility = "hidden");
-                filas.forEach(f => f.classList.remove("selected"));
-
-                const acciones = this.querySelector(".acciones");
-                if (acciones) {
-                    acciones.style.visibility = "visible";
-                    acciones.style.width = "auto";
-                    acciones.style.margin = "auto";
-                    this.classList.add("selected");
-                }
-            });
-        });
-    });
-</script>
+<!-- Fondo oscuro para el modal -->
+<div id="actionContainerBackdrop"></div>
 
 
