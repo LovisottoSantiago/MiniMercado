@@ -156,22 +156,59 @@ namespace MiniMercado.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult EditarParcial(int id)
+        
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public IActionResult EditarParcial(Producto producto)
         {
-            var producto = _context.Producto.FirstOrDefault(p => p.IdProducto == id);
-            if (producto == null)
-                {
-                    return NotFound();
-                }
+            Console.WriteLine($"EditarParcial - Id: {producto.IdProducto}, Nombre: {producto.Nombre}, Precio: {producto.PrecioUnitario}, Stock: {producto.Stock}, Estado: {producto.Estado}, Proveedor: {producto.Proveedor}");
+            
+            if (!ModelState.IsValid) //Verifica que el modelo cumpla las reglas de validación (atributos [Required], rangos, etc).
+            {
+                var errores = string.Join(", ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+                return Json(new { success = false, errors = errores }); //Si hay errores, devuelve JSON con success: false y el listado de errores para mostrar en la UI.
+            }
 
-    // Cargamos los proveedores en el ViewBag si el formulario los necesita
-            ViewBag.Proveedor = new SelectList(_context.Proveedor, "Id", "Nombre", producto.Proveedor);
+            var productoExistente = _context.Producto.FirstOrDefault(p => p.IdProducto == producto.IdProducto); //_context es el contexto de la base de datos, y se busca el producto por su IdProducto.
+            if (productoExistente == null)
+            {
+                return Json(new { success = false, error = "Producto no encontrado" });
+            }
 
-    // Devolvemos la partial view con el modelo
-            return PartialView("_EditarProductoPartial", producto);
+            try
+            {
+                productoExistente.Nombre = producto.Nombre;
+                productoExistente.PrecioUnitario = producto.PrecioUnitario;
+                productoExistente.Stock = producto.Stock;
+                productoExistente.Estado = producto.Estado;
+                productoExistente.Proveedor = producto.Proveedor;
+
+                _context.Entry(productoExistente).State = EntityState.Modified; //Acá le estás diciendo a Entity Framework que el objeto productoExistente ha sido modificado y que debe preparar una actualización (UPDATE) en la base de datos para ese registro.
+                _context.SaveChanges(); // Guarda los cambios en la base de datos.
+
+                return Json(new { success = true }); // Si todo sale bien, devuelve JSON con success: true.
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, error = ex.Message }); // Si ocurre un error, devuelve JSON con success: false y el mensaje de error.
+            }
         }
+                [HttpGet] // Método para cargar el formulario de edición parcial
+public IActionResult EditarParcial(int id)
+{
+    var producto = _context.Producto.FirstOrDefault(p => p.IdProducto == id); //instancia en producto el producto de la base de datos que tiene ese id
+    if (producto == null)
+        return NotFound();
 
-        private bool ProductoExists(int id)
+    ViewBag.Proveedor = new SelectList(_context.Proveedor, "IdProveedor", "Nombre", producto.Proveedor);
+
+    return PartialView("_EditarProductoPartial", producto);
+}
+
+
+        [HttpPost]
+
+               private bool ProductoExists(int id)
         {
             return _context.Producto.Any(e => e.IdProducto == id);
         }
