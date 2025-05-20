@@ -1,0 +1,57 @@
+Fui a FacturaController, hice una copia de los metodos que me interesan (Edit) y los nombré EditParcial, el get devuelve PartialView(factura) y el post RedirectToAction("Index", "CierreCajaScreen");.
+
+Ahora creo una vista en Views/Factura llamada EditParcial.cshtml, va a tener lo mismo que Edit.cshtml pero le saco el layout:
+
+
+@model MiniMercado.Models.Factura
+@{
+    Layout = null; // para que no use el layout completo
+}
+
+En el form le puse esto
+    <form asp-action="EditParcial">
+
+Ahora voy al index de CierreCajaScreen y agregué esto en el final:
+    <!-- Modal Bootstrap -->
+    <div class="modal fade" id="facturaModal" tabindex="-1" role="dialog" aria-labelledby="facturaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        <div class="modal-body" id="facturaModalContent">
+            <!-- Aquí se inyectará el contenido con AJAX -->
+        </div>
+        </div>
+    </div>
+    </div>
+
+
+En la columna acciones, modifiqué los botones:
+ANTES:
+    <a class="btn btn-sm btn-primary" asp-controller="Factura" asp-action="Edit" asp-route-id="@item.IdFactura">Editar</a>
+    <a class="btn btn-sm btn-info" asp-controller="Factura" asp-action="Details" asp-route-id="@item.IdFactura">Detalles</a>
+    <a class="btn btn-sm btn-danger" asp-controller="Factura" asp-action="Delete" asp-route-id="@item.IdFactura">Eliminar</a>
+
+
+DESPUÉS (cambié los asp-action y agregué el open-modal):
+<td class="acciones">
+    <a href="#" class="btn btn-sm btn-primary open-modal" data-url="@Url.Action("EditParcial", "Factura", new { id = item.IdFactura })">Editar</a>
+    <a href="#" class="btn btn-sm btn-info open-modal" data-url="@Url.Action("Details", "Factura", new { id = item.IdFactura })">Detalles</a>
+    <a href="#" class="btn btn-sm btn-danger open-modal" data-url="@Url.Action("Delete", "Factura", new { id = item.IdFactura })">Eliminar</a>
+</td>
+
+
+Al final agregué este script (tiene que ser el primer script que aparezca)
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+Y después este
+<script>
+	$(document).on("click", ".open-modal", function (e) {
+		e.preventDefault();
+		var url = $(this).data("url");  
+	
+		$.get(url, function (data) {
+			$("#facturaModalContent").html(data);
+			$("#facturaModal").modal("show");
+		});
+	});
+</script>
+

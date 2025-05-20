@@ -153,5 +153,96 @@ namespace MiniMercado.Controllers
         {
             return _context.Factura.Any(e => e.IdFactura == id);
         }
+
+
+
+
+        // Parciales
+        public async Task<IActionResult> EditParcial(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var factura = await _context.Factura.FindAsync(id);
+            if (factura == null)
+            {
+                return NotFound();
+            }
+            return PartialView(factura);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditParcial(int id, [Bind("IdFactura,Fecha,FormaPago,Total")] Factura factura)
+        {
+            if (id != factura.IdFactura)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(factura);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!FacturaExists(factura.IdFactura))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index", "CierreCajaScreen");
+
+            }
+            return View(factura);
+        }
+
+
+        // GET: Factura/Delete/5
+        public async Task<IActionResult> DeleteParcial(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var factura = await _context.Factura
+                .FirstOrDefaultAsync(m => m.IdFactura == id);
+            if (factura == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView(factura);
+        }
+
+        // POST: Factura/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeletePartial(int id)
+        {
+            var factura = await _context.Factura.FindAsync(id);
+            if (factura != null)
+            {
+                _context.Factura.Remove(factura);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "CierreCajaScreen");
+        }
+
+
+
     }
+
 }

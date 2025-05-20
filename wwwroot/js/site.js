@@ -38,49 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-
-
-    document.querySelectorAll(".acciones a").forEach(action => {
-        action.addEventListener("click", function (e) {
-            e.preventDefault();
-            const actionType = this.textContent.trim();
-            const row = this.closest("tr");
-            const id = row.cells[0].textContent.trim();
-            console.log("Action Type:", actionType);
-            console.log("Product ID:", id);
-
-            showActionContainer(actionType, id);
-        });
-    });
 });
-
-function showActionContainer(actionType, id) {
-    const actionContainer = document.getElementById("actionContainer");
-    const actionContainerTitle = document.querySelector(".actionContainer-title");
-    const actionContainerBody = document.querySelector(".actionContainer-body");
-
-    actionContainerTitle.textContent = `${actionType} Producto`;
-    if(actionType === "Editar"){
-        fetch(`/Producto/EditarParcial/${id}`)
-        .then(res => res.text())
-        .then(html => {
-            actionContainerBody.innerHTML = html;
-            actionContainer.style.display = "block";
-            document.getElementById("actionContainerBackdrop").style.display = "block";
-        })
-    }
-
-    // Mostrar el modal
-    
-    
-
-    // Cerrar el modal al hacer clic en el botón de cerrar
-    actionContainer.querySelector(".close-actionContainer").addEventListener("click", function () {
-        actionContainer.style.display = "none";
-        document.getElementById("actionContainerBackdrop").style.display = "none";
-
-    });
-}
 
 
     

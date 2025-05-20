@@ -48,7 +48,7 @@ namespace MiniMercado.Controllers
         // GET: Producto/Create
         public IActionResult Create()
         {
-            ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "IdProveedor");
+            ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace MiniMercado.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "IdProveedor", producto.Proveedor);
+            ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre", producto.Proveedor);
             return View(producto);
         }
 
@@ -156,24 +156,96 @@ namespace MiniMercado.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult EditarParcial(int id)
-        {
-            var producto = _context.Producto.FirstOrDefault(p => p.IdProducto == id);
-            if (producto == null)
-                {
-                    return NotFound();
-                }
-
-    // Cargamos los proveedores en el ViewBag si el formulario los necesita
-            ViewBag.Proveedor = new SelectList(_context.Proveedor, "Id", "Nombre", producto.Proveedor);
-
-    // Devolvemos la partial view con el modelo
-            return PartialView("_EditarProductoPartial", producto);
-        }
-
         private bool ProductoExists(int id)
         {
             return _context.Producto.Any(e => e.IdProducto == id);
         }
+
+
+        // Controladores parciales nuevos
+        public IActionResult CreateParcial()
+        {
+            ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre");
+            var producto = new Producto
+            {
+                Estado = true // Valor por defecto
+            };
+
+            return PartialView(producto);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateParcial([Bind("IdProducto,Nombre,PrecioUnitario,Stock,Proveedor,Estado")] Producto producto)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(producto);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "StockScreen");
+            }
+            ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre", producto.Proveedor);
+            return View(producto);
+        }
+
+
+        public async Task<IActionResult> EditParcial(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var producto = await _context.Producto.FindAsync(id);
+            if (producto == null)
+            {
+                return NotFound();
+            }
+            ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre", producto.Proveedor);
+            return PartialView(producto);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditParcial(int id, [Bind("IdProducto,Nombre,PrecioUnitario,Stock,Proveedor,Estado")] Producto producto)
+        {
+            if (id != producto.IdProducto)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(producto);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ProductoExists(producto.IdProducto))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index", "StockScreen");
+            }
+            ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre", producto.Proveedor);
+            return View(producto);
+        }
+
+
+
+
+
+
+
+
+
     }
 }

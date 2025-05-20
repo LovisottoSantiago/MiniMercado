@@ -35,9 +35,9 @@
                         <td>@Html.DisplayFor(modelItem => item.FormaPago)</td>
                         <td>@Html.DisplayFor(modelItem => item.Total)</td>
                         <td class="acciones">
-                            <a class="btn btn-sm btn-primary" asp-controller="Factura" asp-action="Edit" asp-route-id="@item.IdFactura">Editar</a>
-                            <a class="btn btn-sm btn-info" asp-controller="Factura" asp-action="Details" asp-route-id="@item.IdFactura">Detalles</a>
-                            <a class="btn btn-sm btn-danger" asp-controller="Factura" asp-action="Delete" asp-route-id="@item.IdFactura">Eliminar</a>
+                            <a href="#" class="btn btn-sm btn-primary open-modal" data-url="@Url.Action("EditParcial", "Factura", new { id = item.IdFactura })">Editar</a>
+                            <a href="#" class="btn btn-sm btn-info open-modal" data-url="@Url.Action("Details", "Factura", new { id = item.IdFactura })">Detalles</a>
+                            <a href="#" class="btn btn-sm btn-danger open-modal" data-url="@Url.Action("DeleteParcial", "Factura", new { id = item.IdFactura })">Eliminar</a>
                         </td>
                     </tr>
                 }
@@ -62,8 +62,26 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Modal Bootstrap -->
+    <div class="modal fade" id="facturaModal" tabindex="-1" role="dialog" aria-labelledby="facturaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        <div class="modal-body" id="facturaModalContent">
+            <!-- Aquí se inyectará el contenido con AJAX -->
+        </div>
+        </div>
+    </div>
+    </div>
+
+
+
+
 </div>
 
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const filas = document.querySelectorAll(".fila-factura");
@@ -83,4 +101,15 @@
             });
         });
     });
+
+    $(document).on("click", ".open-modal", function (e) {
+        e.preventDefault();
+        var url = $(this).data("url");
+
+        $.get(url, function (data) {
+            $("#facturaModalContent").html(data);
+            $("#facturaModal").modal("show");
+        });
+    });
 </script>
+

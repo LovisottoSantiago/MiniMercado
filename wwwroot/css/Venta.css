@@ -30,9 +30,10 @@ a#btn-escanear:hover {
     border: none;
 }
 
-.salir:hover img#img-escanear {
+#btn-escanear:hover img#img-escanear {
     filter: invert(100%);
 }
+
 
 .container-chad {
     display: flex;

@@ -13,7 +13,8 @@
             <div class="input-group mb-4">
                 <input type="text" id="busquedaProductos" class="form-control rounded-pill text-center" placeholder="Toque para buscar productos...">
             </div>
-            <a class="btn btn-sm btn-warning" id="agregar-producto">Agregar Producto</a>
+            <a href="#" class="btn btn-sm btn-primary open-modal" id="agregar-producto" data-url="@Url.Action("CreateParcial", "Producto")">Agregar Producto</a>
+            
         </div>
 
             <div class="tabla-wrapper">
@@ -39,9 +40,8 @@
                             <td>@Html.DisplayFor(modelItem => item.PrecioUnitario)</td>
                             <td>@item.ProveedorNavigation?.Nombre</td>
                             <td class="acciones">
-                                <a class="btn btn-sm btn-warning" asp-route-id="@item.IdProducto">Editar</a>
-                                <a class="btn btn-sm btn-info text-white" asp-action="Details" asp-route-id="@item.IdProducto">Detalles</a>
-                                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.IdProducto">Eliminar</a>
+                                <a href="#" class="btn btn-sm btn-primary open-modal" data-url="@Url.Action("EditParcial", "Producto", new { id = item.IdProducto })">Editar</a>
+                                <a href="#" class="btn btn-sm btn-danger open-modal" data-url="@Url.Action("EditParcial", "Producto", new { id = item.IdProducto })">Eliminar</a>
                             </td>
                         </tr>
                     }
@@ -51,18 +51,52 @@
         </div>
     </div>
 </div>
-<!-- Modal para mostrar las acciones -->
-<div id="actionContainer" >
-    <div class="actionContainer-header">
-        <h5 class="actionContainer-title">Título del Modal</h5>
-        <button type="button" class="close-actionContainer" >&times;</button>
+
+
+    <!-- Modal Bootstrap -->
+    <div class="modal fade" id="productoModal" tabindex="-1" role="dialog" aria-labelledby="productoModelLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        <div class="modal-body" id="productoModalContent">
+            <!-- Aquí se inyectará el contenido con AJAX -->
+        </div>
+        </div>
     </div>
-    <div class="actionContainer-body">
-        <!-- Aquí se cargará el contenido dinámico -->
     </div>
+
+
 </div>
 
-<!-- Fondo oscuro para el modal -->
-<div id="actionContainerBackdrop"></div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const filas = document.querySelectorAll(".fila-producto");
+
+        filas.forEach(fila => {
+            fila.addEventListener("click", function () {
+                document.querySelectorAll(".acciones").forEach(acc => acc.style.visibility = "hidden");
+                filas.forEach(f => f.classList.remove("selected"));
+
+                const acciones = this.querySelector(".acciones");
+                if (acciones) {
+                    acciones.style.visibility = "visible";
+                    acciones.style.width = "auto";
+                    acciones.style.margin = "auto";
+                    this.classList.add("selected");
+                }
+            });
+        });
+    });
+
+    $(document).on("click", ".open-modal", function (e) {
+        e.preventDefault();
+        var url = $(this).data("url");
+
+        $.get(url, function (data) {
+            $("#productoModalContent").html(data);
+            $("#productoModal").modal("show");
+        });
+    });
+</script>
 
