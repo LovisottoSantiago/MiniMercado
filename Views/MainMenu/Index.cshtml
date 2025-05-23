@@ -3,6 +3,12 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
+<div id="loader" style="display:none;">
+    <div class="spinner"></div>
+</div>
+
+
+
 <div class="main-container">
     <section itemid="main-menu" class="main-menu">
 
@@ -29,3 +35,14 @@
         
     </section>
 </div>
+
+
+
+
+<script>
+    document.querySelectorAll('a.nav-link').forEach(link => {
+        link.addEventListener('click', function (e) {
+            document.getElementById('loader').style.display = 'flex';
+        });
+    });
+</script>
