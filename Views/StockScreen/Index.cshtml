@@ -41,7 +41,7 @@
                             <td>@item.ProveedorNavigation?.Nombre</td>
                             <td class="acciones">
                                 <a href="#" class="btn btn-sm btn-primary open-modal" data-url="@Url.Action("EditParcial", "Producto", new { id = item.IdProducto })">Editar</a>
-                                <a href="#" class="btn btn-sm btn-danger open-modal" data-url="@Url.Action("EditParcial", "Producto", new { id = item.IdProducto })">Eliminar</a>
+                                <a href="#" class="btn btn-sm btn-danger open-modal" data-url="@Url.Action("DeleteParcial", "Producto", new { id = item.IdProducto })">Eliminar</a>
                             </td>
                         </tr>
                     }

@@ -68,6 +68,7 @@ namespace MiniMercado.Controllers
             ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre", producto.Proveedor);
             return View(producto);
         }
+        
 
         // GET: Producto/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -155,6 +156,41 @@ namespace MiniMercado.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+
+    // GET: Producto/Delete/5
+        public async Task<IActionResult> DeleteParcial(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var producto = await _context.Producto
+                .Include(p => p.ProveedorNavigation)
+                .FirstOrDefaultAsync(m => m.IdProducto == id);
+            if (producto == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView(producto);
+        }
+
+        [HttpPost, ActionName("DeleteParcial")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmedParcial(int id)
+        {
+            var producto = await _context.Producto.FindAsync(id);
+            if (producto != null)
+            {
+                _context.Producto.Remove(producto);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "StockScreen");
+        }
+
 
         private bool ProductoExists(int id)
         {
