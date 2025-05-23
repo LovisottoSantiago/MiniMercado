@@ -21,6 +21,7 @@ namespace MiniMercado.Controllers
         {
             var productos = _context.Producto
                 .Include(p => p.ProveedorNavigation) // Incluye la relación
+                .Where(p => p.Estado == true) // Filtra por estado
                 .ToList();
             return View(productos);
         }
