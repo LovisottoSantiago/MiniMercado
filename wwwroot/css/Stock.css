@@ -85,18 +85,24 @@ a#btn-editar-producto:hover {
   border: none;
 }
 
-a#precio-manual {
-    background-color: #1A85FF;
-    color: #ffffff;
-    width: 10rem;
-    border-radius: 20rem;
-    font-size: 1.1rem;    
-    border: none;
+.btn-precio-manual {
+  background-color: #1A85FF;
+  color: #ffffff;
+  width: 10rem;
+  border-radius: 20rem;
+  font-size: 1.1rem;    
+  border: none;
+  text-align: center;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
 }
 
-a#precio-manual:hover {
-    background-color: #034a9b;
-    border: none;
+.btn-precio-manual:hover {
+  background-color: #034a9b;
+  border: none;
+  color: #ffffff;
+  text-decoration: none;
 }
 
 a#agregar-producto {
