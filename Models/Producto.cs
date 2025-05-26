@@ -9,6 +9,8 @@ public partial class Producto
 {
     [Key] public int IdProducto { get; set; }
 
+    public bool EsPrecioManual { get; set; } = false;
+
     public string Nombre { get; set; } = null!;
 
     public decimal? PrecioUnitario { get; set; }

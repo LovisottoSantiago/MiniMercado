@@ -9,7 +9,14 @@
     <div class="container-chad">
         <div class="table-container" style="max-height:50rem; overflow-y: auto;">
         <div class="titulo-tabla">
-            <a class="btn btn-sm btn-warning" id="precio-manual">Precio Manual</a>
+            @if (ViewData["ModoPrecioManual"] != null && (bool)ViewData["ModoPrecioManual"] == true)
+                {
+                    <a href="@Url.Action("Index", "StockScreen")" class=" btn-precio-manual btn btn-secondary mb-3">Productos</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("PrecioManual", "StockScreen")" class="btn-precio-manual btn btn-warning mb-3">Precio manual</a>
+                }
             <div class="input-group mb-4">
                 <input type="text" id="busquedaProductos" class="form-control rounded-pill text-center" placeholder="Toque para buscar productos...">
             </div>
@@ -97,6 +104,29 @@
             $("#productoModalContent").html(data);
             $("#productoModal").modal("show");
         });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const btnPrecioManual = document.getElementById("btnPrecioManual");
+        const btnMostrarTodos = document.getElementById("btnMostrarTodos");
+        const filas = document.querySelectorAll("#productTable tbody tr");
+
+        if (btnPrecioManual) {
+            btnPrecioManual.addEventListener("click", function () {
+                filas.forEach(fila => {
+                    const esManual = fila.getAttribute("data-preciomanual") === "true";
+                    fila.style.display = esManual ? "" : "none";
+                });
+            });
+        }
+
+        if (btnMostrarTodos) {
+            btnMostrarTodos.addEventListener("click", function () {
+                filas.forEach(fila => {
+                    fila.style.display = "";
+                });
+            });
+        }
     });
 </script>
 

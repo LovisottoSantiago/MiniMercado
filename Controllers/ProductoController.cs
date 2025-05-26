@@ -56,19 +56,26 @@ namespace MiniMercado.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdProducto,Nombre,PrecioUnitario,Stock,Proveedor,Estado")] Producto producto)
-        {
-            if (ModelState.IsValid)
+[ValidateAntiForgeryToken]
+            public async Task<IActionResult> Create([Bind("IdProducto,Nombre,PrecioUnitario,Stock,Proveedor,Estado,EsPrecioManual")] Producto producto)
             {
-                _context.Add(producto);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Si es precio manual, ignorar precio y stock (o validarlos según lógica)
+                if (producto.EsPrecioManual)
+                {
+                    producto.PrecioUnitario = null;
+                    producto.Stock = null;
+                }
+
+                if (ModelState.IsValid)
+                {
+                    _context.Add(producto);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
+                ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre", producto.Proveedor);
+                return View(producto);
             }
-            ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre", producto.Proveedor);
-            return View(producto);
-        }
-        
 
         // GET: Producto/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -92,7 +99,7 @@ namespace MiniMercado.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdProducto,Nombre,PrecioUnitario,Stock,Proveedor,Estado")] Producto producto)
+        public async Task<IActionResult> Edit(int id, [Bind("IdProducto,Nombre,PrecioUnitario,Stock,Proveedor,Estado,EsPrecioManual")] Producto producto)
         {
             if (id != producto.IdProducto)
             {
@@ -103,6 +110,13 @@ namespace MiniMercado.Controllers
             {
                 try
                 {
+
+                    if (producto.EsPrecioManual)
+            {
+                producto.PrecioUnitario = null;
+                producto.Stock = null;
+            }
+            
                     _context.Update(producto);
                     await _context.SaveChangesAsync();
                 }
@@ -212,7 +226,7 @@ namespace MiniMercado.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateParcial([Bind("IdProducto,Nombre,PrecioUnitario,Stock,Proveedor,Estado")] Producto producto)
+        public async Task<IActionResult> CreateParcial([Bind("IdProducto,Nombre,PrecioUnitario,Stock,Proveedor,Estado,EsPrecioManual")] Producto producto)
         {
             if (ModelState.IsValid)
             {
@@ -244,7 +258,7 @@ namespace MiniMercado.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditParcial(int id, [Bind("IdProducto,Nombre,PrecioUnitario,Stock,Proveedor,Estado")] Producto producto)
+        public async Task<IActionResult> EditParcial(int id, [Bind("IdProducto,Nombre,PrecioUnitario,Stock,Proveedor,Estado,EsPrecioManual")] Producto producto)
         {
             if (id != producto.IdProducto)
             {
@@ -255,6 +269,12 @@ namespace MiniMercado.Controllers
             {
                 try
                 {
+                    if (producto.EsPrecioManual)
+            {
+                producto.PrecioUnitario = null;
+                producto.Stock = null;
+            }
+
                     _context.Update(producto);
                     await _context.SaveChangesAsync();
                 }
