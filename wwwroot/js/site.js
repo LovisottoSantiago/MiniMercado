@@ -73,6 +73,7 @@ function cargarCarritoDesdeLocalStorage() {
         }
     }
 }
+
 // Cargar el carrito al iniciar la página
 const carrito = [];
 cargarCarritoDesdeLocalStorage();
@@ -92,7 +93,9 @@ function agregarAlCarrito(producto) {
 
 function vaciarCarrito() {
     carrito.length = 0; 
+    document.querySelector(".sub-total-txt h2").textContent = `Total: $0.00`;
     guardarCarritoEnLocalStorage();
+    renderizarCarrito();
 }
 
 function renderizarCarrito() {
@@ -205,7 +208,7 @@ document.getElementById("btnConfirmarCantidad").addEventListener("click", () => 
     if (modoModal === "id") {
         const idIngresado = document.getElementById("inputId").value.trim();
         if (!idIngresado) {
-            alert("Ingrese un ID válido.");
+            showAlert("Ingrese un ID válido.");
             return;
         }
 
@@ -237,7 +240,7 @@ document.getElementById("btnConfirmarCantidad").addEventListener("click", () => 
     } else if (modoModal === "cantidad") {
         const cantidad = parseInt(document.getElementById("inputCantidad").value, 10);
         if (isNaN(cantidad) || cantidad <= 0) {
-            alert("Ingrese una cantidad válida.");
+            showAlert("Ingrese una cantidad válida.");
             return;
         }
         agregarAlCarrito({ ...productoTemporal, cantidad });
@@ -245,7 +248,7 @@ document.getElementById("btnConfirmarCantidad").addEventListener("click", () => 
     } else if (modoModal === "precioManual") {
         const precioManual = parseFloat(document.getElementById("inputPrecioManual").value);
         if (isNaN(precioManual) || precioManual <= 0) {
-            alert("Ingrese un precio válido.");
+            showAlert("Ingrese un precio válido.");
             return;
         }
 
@@ -269,13 +272,19 @@ document.getElementById("btnAgregarId").addEventListener("click", () => {
 // Cargar  por doble click en la tabla de productos
 document.addEventListener("DOMContentLoaded", function () {
     const filas = document.querySelectorAll("#productTable tbody tr");
-
     let ultimaFilaSeleccionada = null;
 
     filas.forEach(fila => {
         fila.addEventListener("click", function () {
+            // Remover clase 'selected' de todas las filas
+            filas.forEach(f => f.classList.remove("selected"));
+            
+            // Agregar clase 'selected' a la fila actual
+            this.classList.add("selected");
+
             const celdas = this.querySelectorAll("td");
 
+            // Doble click simulado: si es la misma fila seleccionada que antes, abrir modal
             if (this === ultimaFilaSeleccionada) {
                 const id = celdas[0].textContent.trim();
 
@@ -300,14 +309,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         }
                     })
                     .catch(error => alert(error.message));
-
-                ultimaFilaSeleccionada = null;
-            } else {
-                ultimaFilaSeleccionada = this;
-
-                filas.forEach(f => f.classList.remove("fila-seleccionada"));
-                this.classList.add("fila-seleccionada");
             }
+
+            ultimaFilaSeleccionada = this;
         });
     });
 });
