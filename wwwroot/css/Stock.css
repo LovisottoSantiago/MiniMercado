@@ -106,30 +106,33 @@ a#btn-editar-producto:hover {
 }
 
 a#agregar-producto {
-    background-color: #B9F8C9;
-    color: #000000;
+    background-color: #B9F8C9 !important;
+    color: #000000 !important;
     width: 12rem;
     border-radius: 20rem;
     font-size: 1.1rem;
     font-weight: 600;
     border: none;
 }
+dl.row{
+  flex-direction: column;;
+}
 
 a#agregar-producto:hover {
-    background-color: rgb(48, 187, 80);
-    border: none;
+    background-color: rgb(48, 187, 80) !important;
+    border: none !important;
 }
 
 a.btn.btn-sm  {
-  background-color: #7c7c7c;
-  color: #ffffff;
-  border-color: #525252;
+  background-color: #7c7c7c !important;
+  color: #ffffff !important;
+  border-color: #525252 !important;
 }
 
 a.btn.btn-sm:hover{
-  background-color: #121212;
-  color: #ffffff;
-  border-color: #525252;
+  background-color: #121212 !important;
+  color: #ffffff !important;
+  border-color: #525252 !important;
 }
 
 .titulo-tabla {
@@ -180,8 +183,9 @@ table.table tbody td:last-child {
   box-sizing: border-box;
 }
 
-.fila-producto.selected {
-  background-color: #e0f7fa;
+
+table.dataTable tbody tr:hover {
+  background-color: #f8f9fa !important; /* un gris muy claro */
 }
 
 .acciones {

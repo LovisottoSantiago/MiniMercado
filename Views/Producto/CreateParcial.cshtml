@@ -47,7 +47,14 @@
 </div>
 
 <div>
-    <a asp-action="Index" asp-controller="StockScreen">Back to List</a>
+    @if (ViewData["Origen"]?.ToString() == "preciomanual")
+    {
+        <a asp-action="PrecioManual" asp-controller="StockScreen">Back to List</a>
+    }
+    else
+    {
+        <a asp-action="Index" asp-controller="StockScreen">Back to List</a>
+    }
 </div>
 
 @section Scripts {

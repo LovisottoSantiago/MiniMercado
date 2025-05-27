@@ -17,11 +17,17 @@ namespace MiniMercado.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+         public IActionResult Index(bool mostrarTodas = false)
         {
+            var hoy = DateTime.Today;
+
             var facturas = _context.Factura
-            .OrderBy(p => p.Fecha) 
-            .ToList();
+                .Where(f => mostrarTodas || (f.Fecha.HasValue && f.Fecha.Value.Date == hoy))
+                .OrderByDescending(f => f.Fecha)
+                .ToList();
+
+            ViewData["MostrarTodas"] = mostrarTodas;
+
             return View(facturas);
         }
 

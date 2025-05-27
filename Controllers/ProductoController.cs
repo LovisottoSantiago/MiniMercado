@@ -173,7 +173,7 @@ namespace MiniMercado.Controllers
 
 
     // GET: Producto/Delete/5
-        public async Task<IActionResult> DeleteParcial(int? id)
+        public async Task<IActionResult> DeleteParcial(int? id, string origen)
         {
             if (id == null)
             {
@@ -183,6 +183,7 @@ namespace MiniMercado.Controllers
             var producto = await _context.Producto
                 .Include(p => p.ProveedorNavigation)
                 .FirstOrDefaultAsync(m => m.IdProducto == id);
+            ViewData["Origen"] = origen; // Para saber de dónde se llama
             if (producto == null)
             {
                 return NotFound();
@@ -213,9 +214,10 @@ namespace MiniMercado.Controllers
 
 
         // Controladores parciales nuevos
-        public IActionResult CreateParcial()
+        public IActionResult CreateParcial(string origen)
         {
             ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre");
+            ViewData["Origen"] = origen; // Para saber de dónde se llama
             var producto = new Producto
             {
                 Estado = true // Valor por defecto
@@ -235,6 +237,7 @@ namespace MiniMercado.Controllers
                 return RedirectToAction("Index", "StockScreen");
             }
             ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre", producto.Proveedor);
+
             return View(producto);
         }
 
