@@ -10,6 +10,10 @@
         <div class="table-container" style="max-height:50rem; overflow-y: auto;">
         <div class="titulo-tabla">
             <h2 class="mb-4 text-center">Facturas</h2>
+            <a class="btn-todas-facturas btn btn-warning mb-3"
+                href="@Url.Action("Index", "CierreCajaScreen", new { mostrarTodas = !(bool)(ViewData["MostrarTodas"] ?? false) })">
+                @( (bool)(ViewData["MostrarTodas"] ?? false) ? "Mostrar facturas de hoy" : "Mostrar todas las facturas" )
+                </a>
             <div class="input-group mb-4">
                 <input type="text" id="busquedaFacturas" class="form-control rounded-pill text-center" placeholder="Toque para buscar facturas...">
             </div>

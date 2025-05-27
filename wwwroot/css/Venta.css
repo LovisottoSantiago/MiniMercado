@@ -518,6 +518,9 @@ input#inputId {
 .fila-producto.selected {
     background-color: #d1ecf1; /* azul clarito */
 }
+.fila-producto.selected:hover {
+    background-color: #2c79ca !important; /* azul más claro al pasar el mouse */
+}
 
 /* Hover sobre filas */
 #productTable tbody tr:hover {

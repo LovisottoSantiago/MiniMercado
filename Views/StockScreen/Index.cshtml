@@ -20,8 +20,10 @@
             <div class="input-group mb-4">
                 <input type="text" id="busquedaProductos" class="form-control rounded-pill text-center" placeholder="Toque para buscar productos...">
             </div>
-            <a href="#" class="btn btn-sm btn-primary open-modal" id="agregar-producto" data-url="@Url.Action("CreateParcial", "Producto")">Agregar Producto</a>
-            
+                 <a href="#" class="btn btn-sm btn-primary open-modal" id="agregar-producto"
+                 data-url="@Url.Action("CreateParcial", "Producto", new { origen = ViewData["ModoPrecioManual"] != null && (bool)ViewData["ModoPrecioManual"] ? "preciomanual" : "index" })">
+                 Agregar Producto
+                </a>
         </div>
 
             <div class="tabla-wrapper">
@@ -51,8 +53,11 @@
                                 data-url="@Url.Action("EditParcial", "Producto", new { id = item.IdProducto, origen = ViewData["ModoPrecioManual"] != null && (bool)ViewData["ModoPrecioManual"] ? "preciomanual" : "index" })">
                                 Editar
                                 </a>
-
-                                <a href="#" class="btn btn-sm btn-danger open-modal" data-url="@Url.Action("DeleteParcial", "Producto", new { id = item.IdProducto })">Eliminar</a>
+                                <a href="#" class="btn btn-sm btn-danger open-modal"
+                                data-url="@Url.Action("DeleteParcial", "Producto", new { id = item.IdProducto, origen = ViewData["ModoPrecioManual"] != null && (bool)ViewData["ModoPrecioManual"] ? "preciomanual" : "index" })">
+                                Eliminar
+                                </a>
+                                
                             </td>
                         </tr>
                     }
@@ -133,7 +138,17 @@
         }
     });
 
-
+     $(document).ready(function () {
+        console.log("Document ready");
+        $('#productTable').DataTable({
+            searching: false,   // desactiva la búsqueda
+            paging: false,      // desactiva la paginación
+            info: false,        // oculta el resumen "Mostrando X de Y"
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+            }
+        });
+    });
 
 
 </script>

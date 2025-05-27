@@ -25,6 +25,7 @@ namespace MiniMercado.Controllers
             return View(await _context.Factura.ToListAsync());
         }
 
+
         // GET: Factura/Details/5
         public async Task<IActionResult> Details(int? id)
         {
