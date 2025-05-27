@@ -1,36 +1,49 @@
 @model MiniMercado.Models.Factura
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle de Factura";
+    Layout = null;
 }
 
-<h1>Details</h1>
+<h1>Factura N° @Model.IdFactura</h1>
+<p><strong>Fecha:</strong> @Model.Fecha</p>
+<p><strong>Forma de Pago:</strong> @Model.FormaPago</p>
 
-<div>
-    <h4>Factura</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Fecha)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Fecha)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FormaPago)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FormaPago)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Total)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Total)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.IdFactura">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<hr />
+
+<h2>Productos vendidos</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var det in Model.DetalleFacturas)
+    {
+        <tr>
+            <td>@det.IdProductoNavigation.IdProducto</td>
+            <td>@det.IdProductoNavigation.Nombre</td>
+            <td>@det.Cantidad</td>
+            <td>$@det.PrecioUnitario</td>
+            <td>
+                $@( (det.PrecioUnitario * det.Cantidad) )
+            </td>
+        </tr>
+    }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="4" class="text-end">TOTAL:</th>
+            <th>$@Model.Total</th>
+        </tr>
+    </tfoot>
+</table>
+
+<p>
+    <a asp-action="Index" asp-controller="CierreCajaScreen" class="btn btn-secondary">Volver al listado</a>
+</p>

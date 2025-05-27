@@ -29,20 +29,19 @@ namespace MiniMercado.Controllers
         // GET: Factura/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var factura = await _context.Factura
-                .FirstOrDefaultAsync(m => m.IdFactura == id);
-            if (factura == null)
-            {
-                return NotFound();
-            }
+                // Incluir los detalles de factura
+                .Include(f => f.DetalleFacturas)
+                    .ThenInclude(d => d.IdProductoNavigation)
+                .FirstOrDefaultAsync(f => f.IdFactura == id);
+
+            if (factura == null) return NotFound();
 
             return View(factura);
         }
+
 
         // GET: Factura/Create
         public IActionResult Create()

@@ -330,6 +330,9 @@ th#columna-total {
     justify-items: center;
     align-items: center;
     width: 20rem;
+    font-size: 1.5rem;
+    color: white;
+    font-weight: bold;
     border-radius: 1rem;
     height: 4rem;
     margin: 0 auto;
@@ -338,10 +341,6 @@ th#columna-total {
     flex-direction: column;
 }
 
-.venta-btn h2 {
-    color: white;
-    margin: 0;
-}
 
 .venta-btn:hover {
     background-color: #333333;
@@ -527,3 +526,54 @@ input#inputId {
     background-color: #f1f1f1;
     cursor: pointer;
 }
+
+
+
+/* Loader de venta */
+#loaderOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.loader, .loader:before, .loader:after {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  animation-fill-mode: both;
+  animation: bblFadInOut 1.8s infinite ease-in-out;
+}
+.loader {
+  color: #FFF;
+  font-size: 7px;
+  position: relative;
+  text-indent: -9999em;
+  transform: translateZ(0);
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+.loader:before {
+  left: -3.5em;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 3.5em;
+}
+
+@keyframes bblFadInOut {
+  0%, 80%, 100% { box-shadow: 0 2.5em 0 -1.3em }
+  40% { box-shadow: 0 2.5em 0 0 }
+}
+    

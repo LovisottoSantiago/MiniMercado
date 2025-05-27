@@ -1,0 +1,49 @@
+En el controlador de venta puse el metodo RealizarVenta
+
+
+Cree este intermediario DetalleFacturaDTO (asi lo habia hecho en starbucks)
+    public class DetalleFacturaDTO
+    {
+        public int IdProducto { get; set; }
+        public int Cantidad { get; set; }
+        public decimal PrecioUnitario { get; set; }
+    }
+
+
+
+Le paso la data del carrito (front) al backend
+document.getElementById("btnConfirmarVenta").addEventListener("click", function () {
+    if (carrito.length === 0) {
+        showAlert("El carrito está vacío.");
+        return;
+    }
+
+    showConfirm("¿Confirmar venta?", () => {
+        const ventaData = carrito.map(p => ({
+            idProducto: p.id,
+            cantidad: p.cantidad,
+            precioUnitario: p.precio
+        }));
+
+        fetch("/VentaScreen/RealizarVenta", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(ventaData)
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Error al realizar la venta.");
+            return response.json();
+        })
+        .then(data => {
+            showAlert("Venta realizada con éxito. Nro Factura: " + data.facturaId);
+            vaciarCarrito();
+            renderizarCarrito();
+        })
+        .catch(error => {
+            console.error(error);
+            showAlert("Hubo un error al procesar la venta.");
+        });
+    });
+});

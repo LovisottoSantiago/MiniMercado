@@ -371,3 +371,86 @@ function showConfirm(message, onConfirm, onCancel) {
 document.addEventListener("DOMContentLoaded", function () {
     renderizarCarrito();
 });
+
+
+
+
+// Realizar venta
+document.getElementById("btnConfirmarVenta").addEventListener("click", function () {
+    if (carrito.length === 0) {
+        showAlert("El carrito está vacío.");
+        return;
+    }
+
+    showConfirm("¿Confirmar venta?", () => {
+        const ventaData = carrito.map(p => ({
+            idProducto: p.id,
+            cantidad: p.cantidad,
+            precioUnitario: p.precio
+        }));
+
+        // Mostrar loader
+        document.getElementById("loaderOverlay").style.display = "flex";
+
+        fetch("/VentaScreen/RealizarVenta", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(ventaData)
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Error al realizar la venta.");
+            return response.json();
+        })
+        .then(data => {
+            showAlert("Venta realizada con éxito. Nro Factura: " + data.facturaId);
+            vaciarCarrito();
+            renderizarCarrito();
+            recargarTablaProductos();
+        })
+        .catch(error => {
+            console.error(error);
+            showAlert("Hubo un error al procesar la venta.");
+        })
+        .finally(() => {
+            // Ocultar loader
+            document.getElementById("loaderOverlay").style.display = "none";
+        });
+    });
+});
+
+
+// Recargar tabla de productos despues de vender
+function recargarTablaProductos() {
+    fetch('/VentaScreen/ObtenerProductosTabla')
+        .then(response => {
+            if (!response.ok) throw new Error("Error al obtener productos.");
+            return response.json();
+        })
+        .then(productos => {
+            const tbody = document.querySelector('#productTable tbody');
+            tbody.innerHTML = ''; // limpiar contenido actual
+
+            productos.forEach(p => {
+                let nombre = p.nombre.length > 25 ? p.nombre.substring(0, 22) + "..." : p.nombre;
+
+                const tr = document.createElement('tr');
+                tr.classList.add('fila-producto');
+
+                tr.innerHTML = `
+                    <td>${p.idProducto}</td>
+                    <td>${nombre}</td>
+                    <td>${p.stock}</td>
+                    <td>${p.precioUnitario.toFixed(2)}</td>
+                    <td>${p.proveedor}</td>
+                `;
+
+                tbody.appendChild(tr);
+            });
+        })
+        .catch(error => {
+            console.error(error);
+            showAlert("Error al recargar los productos.");
+        });
+}

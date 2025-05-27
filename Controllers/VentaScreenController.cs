@@ -67,9 +67,60 @@ namespace MiniMercado.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<IActionResult> RealizarVenta([FromBody] List<DetalleFacturaDTO> productos)
+        {
+            if (productos == null || !productos.Any())
+                return BadRequest("El carrito está vacío.");
+
+            var factura = new Factura
+            {
+                Fecha = DateTime.Now,
+                FormaPago = "Efectivo", // Valor por defecto, lo cambiamos mas adelante 
+                Total = productos.Sum(p => p.PrecioUnitario * p.Cantidad),
+                DetalleFacturas = new List<DetalleFactura>()
+            };
+
+            foreach (var item in productos)
+            {
+                factura.DetalleFacturas.Add(new DetalleFactura
+                {
+                    IdProducto = item.IdProducto,
+                    Cantidad = item.Cantidad,
+                    PrecioUnitario = item.PrecioUnitario
+                });
+
+                // Actualizar stock del producto
+                var productoDb = await _context.Producto.FindAsync(item.IdProducto);
+                if (productoDb != null && productoDb.Stock.HasValue)
+                    productoDb.Stock -= item.Cantidad;
+            }
+
+            _context.Factura.Add(factura);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { mensaje = "Venta realizada correctamente", facturaId = factura.IdFactura });
+        }
 
 
 
+        [HttpGet]
+        public IActionResult ObtenerProductosTabla()
+        {
+            var productos = _context.Producto
+                .Include(p => p.ProveedorNavigation)
+                .Where(p => !p.EsPrecioManual)
+                .Select(p => new {
+                    idProducto = p.IdProducto,
+                    nombre = p.Nombre,
+                    stock = p.Stock,
+                    precioUnitario = p.PrecioUnitario,
+                    proveedor = p.ProveedorNavigation.Nombre
+                })
+                .ToList();
+
+            return Json(productos);
+        }
 
 
 
@@ -78,3 +129,12 @@ namespace MiniMercado.Controllers
 
     }
 }
+
+
+
+    public class DetalleFacturaDTO
+    {
+        public int IdProducto { get; set; }
+        public int Cantidad { get; set; }
+        public decimal PrecioUnitario { get; set; }
+    }
