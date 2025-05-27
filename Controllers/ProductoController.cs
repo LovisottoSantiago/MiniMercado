@@ -239,7 +239,7 @@ namespace MiniMercado.Controllers
         }
 
 
-        public async Task<IActionResult> EditParcial(int? id)
+        public async Task<IActionResult> EditParcial(int? id, string origen)
         {
             if (id == null)
             {
@@ -252,6 +252,7 @@ namespace MiniMercado.Controllers
                 return NotFound();
             }
             ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre", producto.Proveedor);
+            ViewData["Origen"] = origen; //
             return PartialView(producto);
         }
 
@@ -292,6 +293,7 @@ namespace MiniMercado.Controllers
                 return RedirectToAction("Index", "StockScreen");
             }
             ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre", producto.Proveedor);
+            
             return View(producto);
         }
 
