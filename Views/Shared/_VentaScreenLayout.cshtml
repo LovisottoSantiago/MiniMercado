@@ -29,10 +29,8 @@
                     <div class="botones">
                         <div class="salir">
                             <li class="nav-item" id="btn-escanear">
-                                <a class="btn btn-secondary d-flex align-items-center justify-content-center gap-2" asp-area="" asp-controller="MainMenu" asp-action="Index" id="btn-escanear">
-                                    <img src="@Url.Content("~/Img/qr-code.png")" alt="qr-code" style="height: 1.5rem; width: auto;" id="img-escanear">
-                                    Escanear producto
-                                </a>
+                            <button id="btnAgregarId" class="btn btn-primary">Agregar por ID</button>
+
                             </li>
                             <li class="nav-item">
                                 <a class="btn btn-secondary d-flex align-items-center justify-content-center gap-2" asp-area="" asp-controller="MainMenu" asp-action="Index">
@@ -66,3 +64,6 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+
+

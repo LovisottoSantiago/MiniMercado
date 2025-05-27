@@ -203,7 +203,7 @@ div#carrito-ventas-container {
     flex-direction: column;
     flex-wrap: nowrap;
     align-content: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     padding: .8rem;
     max-width: 26rem;
@@ -218,11 +218,30 @@ div#carrito-ventas-container h2 {
     font-size: 1.8rem;
 }
 
+button#btnAgregarId {
+    color: #ffffff;
+    background-color: #1a85ff;
+    border-color: none;
+    width: 9rem;
+    border-radius: 3.75rem;
+    height: 3rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+button#btnAgregarId:hover {
+    background-color: #034a9b;
+    border-color: none;
+    color: #ffffff;
+}
+
+
 .tabla-wrapper-ventas {
     max-height: 16rem;
     overflow-y: auto;
     box-sizing: border-box;
     display: flex;
+    min-height: 16rem;
 }
 
 #productTable th.codigo-col,
@@ -426,4 +445,82 @@ p#vaciar-txt {
     .table-container {
         padding: 1rem;
     }
+}
+
+
+
+/* Modal para ingresar cantidad */
+.modal-cantidad {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    text-align: center;
+    width: 25rem;
+    display: flex;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content h3 {
+  margin-bottom: 15px;
+}
+
+.modal-content input[type="number"] {
+  width: 80%;
+  padding: 8px;
+  font-size: 1.1em;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+}
+
+.modal-buttons button {
+  margin: 0 10px;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#btnConfirmarCantidad {
+  background-color: #000000;
+  color: white;
+}
+
+#btnCancelarCantidad {
+  background-color: #dc3545;
+  color: white;
+}
+
+input#inputId {
+    text-align: center;
+    height: 2.5rem;
+}
+
+
+
+
+/* Resalta la fila seleccionada */
+.fila-producto.selected {
+    background-color: #d1ecf1; /* azul clarito */
+}
+
+/* Hover sobre filas */
+#productTable tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
 }

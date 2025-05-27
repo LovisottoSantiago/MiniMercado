@@ -18,7 +18,7 @@
                     <a href="@Url.Action("PrecioManual", "VentaScreen")" class="btn-precio-manual btn btn-warning mb-3">Precio manual</a>
                 }
             <div class="input-group mb-4">
-                <input type="text" id="busquedaProductos" class="form-control rounded-pill text-center" placeholder="Toque para buscar productos...">
+                <input type="text" id="busquedaProductos" class="form-control rounded-pill text-center" placeholder="Toque para buscar productos..." autocomplete="off">
             </div>
         </div>
 
@@ -65,27 +65,24 @@
                             <th id="columna-total">Total</th>
                         </tr>
                     </thead>
+                    
+                    <!-- Carrito vacío por defecto -->
                     <tbody>
-                        @foreach (var item in Model)
-                        {
-                            var cantidad = 5;
-                            string nombre = item.Nombre.Length > 20 ? item.Nombre.Substring(0, 17) + "..." : item.Nombre;
-
-                            <tr class="fila-producto">
-                                <td>@cantidad</td>
-                                <td>@nombre</td>
-                                <td>@Html.DisplayFor(modelItem => item.PrecioUnitario)</td>
-                                <td>@(item.PrecioUnitario * cantidad)</td>
+                            <tr class="fila-producto placeholder-row">
+                                <td style="min-width: 5rem;">&nbsp;</td>
+                                <td style="min-width: 8rem;">&nbsp;</td>
+                                <td style="min-width: 5rem;">&nbsp;</td>
+                                <td style="min-width: 5rem;">&nbsp;</td>
                             </tr>
-                        }
                     </tbody>
                 </table>
+                
             </div>
             <hr class="dashed">
             <div class="sub-total">
                 <div class="sub-total-txt">
-                    <h2>Total: $220.000</h2>
-                    <div class="vaciar-btn">
+                    <h2>Total: $0</h2>
+                    <div class="vaciar-btn" id="vaciarCarritoBtn">
                         <p id="vaciar-txt">vaciar</p>
                     </div>
                 </div>
@@ -97,6 +94,46 @@
 
     </div>
 </div>
+
+
+
+<!-- Modal para ingresar cantidad o ID -->
+<div id="modalCantidad" class="modal-cantidad" style="display:none;">
+  <div class="modal-content">
+    <h3 id="modalTitulo">Ingrese cantidad</h3>
+
+    <!-- Input para ID (texto) -->
+    <input type="text" id="inputId" placeholder="Ingrese ID del producto" style="display:none; margin-bottom: 15px;" />
+
+    <!-- Input para cantidad (número) -->
+    <input type="number" id="inputCantidad" min="1" value="1" style="display:none;" />
+
+    <!-- Input para precio (solo cuando el producto es de precio manual) -->
+    <input type="number" id="inputPrecioManual" min="0" step="0.01" placeholder="Ingrese precio" style="display:none; margin-bottom: 15px;" />
+
+
+    <div class="modal-buttons">
+      <button id="btnConfirmarCantidad">Aceptar</button>
+      <button id="btnCancelarCantidad">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal genérico para alertas y confirmaciones -->
+<div id="customModal">
+  <div class="custom-modal-content">
+    <p id="customModalMessage"></p>
+    <button id="customModalBtnOk">Aceptar</button>
+    <button id="customModalBtnCancel">Cancelar</button>
+  </div>
+</div>
+
+
+
+
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const btnPrecioManual = document.getElementById("btnPrecioManual");
