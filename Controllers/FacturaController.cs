@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MiniMercado.Data;
 using MiniMercado.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MiniMercado.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class FacturaController : Controller
     {
         private readonly AppDbContext _context;

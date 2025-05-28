@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using MiniMercado.Models;
 
 namespace MiniMercado.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class ProductoController : Controller
     {
         private readonly AppDbContext _context;
@@ -56,26 +58,26 @@ namespace MiniMercado.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-[ValidateAntiForgeryToken]
-            public async Task<IActionResult> Create([Bind("IdProducto,Nombre,PrecioUnitario,Stock,Proveedor,Estado,EsPrecioManual")] Producto producto)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("IdProducto,Nombre,PrecioUnitario,Stock,Proveedor,Estado,EsPrecioManual")] Producto producto)
+        {
+            // Si es precio manual, ignorar precio y stock (o validarlos según lógica)
+            if (producto.EsPrecioManual)
             {
-                // Si es precio manual, ignorar precio y stock (o validarlos según lógica)
-                if (producto.EsPrecioManual)
-                {
-                    producto.PrecioUnitario = null;
-                    producto.Stock = null;
-                }
-
-                if (ModelState.IsValid)
-                {
-                    _context.Add(producto);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
-
-                ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre", producto.Proveedor);
-                return View(producto);
+                producto.PrecioUnitario = null;
+                producto.Stock = null;
             }
+
+            if (ModelState.IsValid)
+            {
+                _context.Add(producto);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+
+            ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre", producto.Proveedor);
+            return View(producto);
+        }
 
         // GET: Producto/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -112,11 +114,11 @@ namespace MiniMercado.Controllers
                 {
 
                     if (producto.EsPrecioManual)
-            {
-                producto.PrecioUnitario = null;
-                producto.Stock = null;
-            }
-            
+                    {
+                        producto.PrecioUnitario = null;
+                        producto.Stock = null;
+                    }
+
                     _context.Update(producto);
                     await _context.SaveChangesAsync();
                 }
@@ -172,7 +174,7 @@ namespace MiniMercado.Controllers
         }
 
 
-    // GET: Producto/Delete/5
+        // GET: Producto/Delete/5
         public async Task<IActionResult> DeleteParcial(int? id, string origen)
         {
             if (id == null)
@@ -274,10 +276,10 @@ namespace MiniMercado.Controllers
                 try
                 {
                     if (producto.EsPrecioManual)
-            {
-                producto.PrecioUnitario = null;
-                producto.Stock = null;
-            }
+                    {
+                        producto.PrecioUnitario = null;
+                        producto.Stock = null;
+                    }
 
                     _context.Update(producto);
                     await _context.SaveChangesAsync();
@@ -296,7 +298,7 @@ namespace MiniMercado.Controllers
                 return RedirectToAction("Index", "StockScreen");
             }
             ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre", producto.Proveedor);
-            
+
             return View(producto);
         }
 

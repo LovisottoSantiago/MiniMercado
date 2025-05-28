@@ -1,9 +1,11 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MiniMercado.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MiniMercado.Controllers
 {
+    [Authorize(Roles = "Administrador")] 
     public class MainMenuController : Controller
     {
         private readonly ILogger<HomeController> _logger;

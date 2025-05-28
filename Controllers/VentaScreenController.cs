@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MiniMercado.Data;
 using MiniMercado.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MiniMercado.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class VentaScreenController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -68,7 +70,7 @@ namespace MiniMercado.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> RealizarVenta([FromQuery] string formaPago, [FromBody]  List<DetalleFacturaDTO> productos)
+        public async Task<IActionResult> RealizarVenta([FromQuery] string formaPago, [FromBody] List<DetalleFacturaDTO> productos)
         {
             if (productos == null || !productos.Any())
                 return BadRequest("El carrito está vacío.");
@@ -78,9 +80,9 @@ namespace MiniMercado.Controllers
 
             var factura = new Factura
             {
-                Fecha      = DateTime.Now,
-                FormaPago  = formaPago,     
-                Total      = productos.Sum(p => p.PrecioUnitario * p.Cantidad),
+                Fecha = DateTime.Now,
+                FormaPago = formaPago,
+                Total = productos.Sum(p => p.PrecioUnitario * p.Cantidad),
                 DetalleFacturas = new List<DetalleFactura>()
             };
             foreach (var item in productos)
@@ -112,7 +114,8 @@ namespace MiniMercado.Controllers
             var productos = _context.Producto
                 .Include(p => p.ProveedorNavigation)
                 .Where(p => !p.EsPrecioManual)
-                .Select(p => new {
+                .Select(p => new
+                {
                     idProducto = p.IdProducto,
                     nombre = p.Nombre,
                     stock = p.Stock,

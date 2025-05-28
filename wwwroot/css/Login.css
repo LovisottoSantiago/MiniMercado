@@ -1,0 +1,50 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(-45deg, #0c0c0c, #050505, #050505, #000000);
+    background-blend-mode: screen;
+    color: #f8f8f8;
+    overflow-x: hidden;
+}
+
+
+.login-container {
+    max-width: 380px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    padding: 2.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    margin: auto;
+    margin-top: 5vh;
+    text-align: center;
+    color: #f8f8f8;
+}
+
+h1 {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+p {
+    font-weight: 300;
+}
+
+
+
+@keyframes pulse-bg {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+body {
+    background: linear-gradient(-45deg, #0c0c0c, #050505, #050505, #000000);
+    background-size: 400% 400%;
+    color: #f8f8f8;
+    animation: pulse-bg 15s ease infinite;
+}

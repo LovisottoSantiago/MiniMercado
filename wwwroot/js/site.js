@@ -155,6 +155,14 @@ document.getElementById("vaciarCarritoBtn").addEventListener("click", function (
 
 
 // ---------------------- Modal cantidad ----------------------
+document.addEventListener("keydown", function (e) {
+    const modal = document.getElementById("modalCantidad");
+    if (modal.style.display === "flex" && e.key === "Enter") {
+        e.preventDefault();
+        document.getElementById("btnConfirmarCantidad").click();
+    }
+});
+
 
 let productoTemporal = null;
 let modoModal = null;  // "id" o "cantidad"
@@ -173,27 +181,26 @@ function abrirModalCantidad(producto = null, modo = "cantidad") {
     inputId.style.display = "none";
     inputPrecioManual.style.display = "none";
 
+    modal.style.display = "flex"; 
 
-    if (modo === "id") {
-        titulo.textContent = "Ingrese ID del producto";
-        inputId.style.display = "block";
-        inputId.style.autocomplete = "off";
-        inputCantidad.style.display = "none";
-        inputId.value = "";
-        inputId.focus();
-    } else if (modo === "cantidad") {
-        titulo.textContent = `Ingrese cantidad para "${productoTemporal.nombre}"`;
-        inputCantidad.style.display = "block";
-        inputCantidad.value = 1;
-        inputCantidad.focus();
-    } else if (modo === "precioManual") {
-        titulo.textContent = `Ingrese precio para "${productoTemporal.nombre}"`;
-        inputPrecioManual.style.display = "block";
-        inputPrecioManual.value = "";
-        inputPrecioManual.focus();
-    }
-
-    modal.style.display = "flex";
+    setTimeout(() => {
+        if (modo === "id") {
+            titulo.textContent = "Ingrese ID del producto";
+            inputId.style.display = "block";
+            inputId.value = "";
+            inputId.focus();  // << Ahora sí funciona
+        } else if (modo === "cantidad") {
+            titulo.textContent = `Ingrese cantidad para "${productoTemporal.nombre}"`;
+            inputCantidad.style.display = "block";
+            inputCantidad.value = 1;
+            inputCantidad.focus();
+        } else if (modo === "precioManual") {
+            titulo.textContent = `Ingrese precio para "${productoTemporal.nombre}"`;
+            inputPrecioManual.style.display = "block";
+            inputPrecioManual.value = "";
+            inputPrecioManual.focus();
+        }
+    }, 10); // Pequeño retardo para que el DOM actualice visibilidad
 }
 
 
@@ -215,10 +222,15 @@ document.getElementById("btnConfirmarCantidad").addEventListener("click", () => 
         // Buscar producto por ID
         fetch(`/VentaScreen/ObtenerProducto?id=${idIngresado}`)
             .then(response => {
-                if (!response.ok) throw new Error("Producto no encontrado");
+                if (!response.ok) {
+                    showAlert("Producto no encontrado");
+                    return null; // Detener la cadena .then
+                }
                 return response.json();
             })
             .then(producto => {
+                if (!producto) return;
+                
                 cerrarModalCantidad();
 
                 // Si es un producto de precio manual
@@ -245,6 +257,10 @@ document.getElementById("btnConfirmarCantidad").addEventListener("click", () => 
         }
         agregarAlCarrito({ ...productoTemporal, cantidad });
         cerrarModalCantidad();
+
+        // Abir de nuevo para pedir el ID si el modo continuo sigue activo
+        if (escaneoContinuo) abrirModalCantidad(null, "id");
+
     } else if (modoModal === "precioManual") {
         const precioManual = parseFloat(document.getElementById("inputPrecioManual").value);
         if (isNaN(precioManual) || precioManual <= 0) {
@@ -254,16 +270,22 @@ document.getElementById("btnConfirmarCantidad").addEventListener("click", () => 
 
         agregarAlCarrito({ ...productoTemporal, precio: precioManual, cantidad: 1 });
         cerrarModalCantidad();
+
+        // Abir de nuevo para pedir el ID si el modo continuo sigue activo
+        if (escaneoContinuo) abrirModalCantidad(null, "id");
     }
 });
 
 
 document.getElementById("btnCancelarCantidad").addEventListener("click", () => {
+    escaneoContinuo = false;
     cerrarModalCantidad();
 });
 
+let escaneoContinuo = false;   
 // Cambiá el evento del botón para abrir el modal en modo ID:
 document.getElementById("btnAgregarId").addEventListener("click", () => {
+    escaneoContinuo = true;  
     abrirModalCantidad(null, "id");
 });
 
@@ -473,3 +495,6 @@ function recargarTablaProductos() {
             showAlert("Error al recargar los productos.");
         });
 }
+
+
+

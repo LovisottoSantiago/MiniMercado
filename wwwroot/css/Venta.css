@@ -516,6 +516,7 @@ p#vaciar-txt {
 input#inputId {
     text-align: center;
     height: 2.5rem;
+    border-style: solid;
     border-radius: 1rem;
 }
 
@@ -692,3 +693,4 @@ input#inputId {
   button#btn-mp:hover {
     background-color: #00265f; 
   }
+
