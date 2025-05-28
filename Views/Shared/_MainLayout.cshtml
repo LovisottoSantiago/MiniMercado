@@ -26,10 +26,12 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="btn btn-secondary d-flex align-items-center justify-content-center gap-2" asp-area="" asp-controller="Home" asp-action="Login">
-                            <img src="@Url.Content("~/Img/lock.png")" alt="lock" style="height: 0.9rem; width: auto;">
-                            Salir
-                        </a>
+                        <form asp-controller="Home" asp-action="Logout" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-secondary d-flex align-items-center justify-content-center gap-2">
+                                <img src="@Url.Content("~/Img/lock.png")" alt="lock" style="height: 0.9rem; width: auto;">
+                                Salir
+                            </button>
+                        </form>
                     </li>
                 </ul>
             </div>

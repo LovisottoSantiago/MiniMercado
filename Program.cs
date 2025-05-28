@@ -20,7 +20,7 @@ builder.Services.AddAuthentication("Cookies")
     .AddCookie("Cookies", options =>
     {
         options.LoginPath = "/Home/Login"; // Redirige si no está autenticado
-        options.AccessDeniedPath = "/Home/AccessDenied"; 
+        options.AccessDeniedPath = "/Home/AccesoDenegado"; 
     });
 
 builder.Services.AddAuthorization(); 

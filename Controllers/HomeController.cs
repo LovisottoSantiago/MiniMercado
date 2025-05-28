@@ -21,14 +21,14 @@ namespace MiniMercado.Controllers
             _config = config;
         }
 
-        
+
         public IActionResult Index()
         {
             Console.WriteLine("Rol: " + User.FindFirst(ClaimTypes.Role)?.Value);
             return View();
         }
 
-        [Authorize(Roles = "Administrador")] 
+        [Authorize(Roles = "Administrador")]
         public IActionResult Privacy()
         {
             return View();
@@ -89,10 +89,21 @@ namespace MiniMercado.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult AccessDenied()
+        public IActionResult AccesoDenegado()
         {
-            return Content("No tenés permisos para acceder a esta página.");
+            return View();
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync("Cookies");
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
+        }
+
+
 
 
 
