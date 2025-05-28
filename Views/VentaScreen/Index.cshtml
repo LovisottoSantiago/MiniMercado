@@ -7,49 +7,51 @@
 
 <div class="container mt-5">
     <div class="container-chad">
-        <div class="table-container" style="max-height:50rem; overflow-y: auto;">
-        <div class="titulo-tabla">
-           @if (ViewData["ModoPrecioManual"] != null && (bool)ViewData["ModoPrecioManual"] == true)
-                {
-                    <a href="@Url.Action("Index", "VentaScreen")" class=" btn-precio-manual btn btn-secondary mb-3">Productos</a>
-                }
-                else
-                {
-                    <a href="@Url.Action("PrecioManual", "VentaScreen")" class="btn-precio-manual btn btn-warning mb-3">Precio manual</a>
-                }
-            <div class="input-group mb-4">
-                <input type="text" id="busquedaProductos" class="form-control rounded-pill text-center" placeholder="Toque para buscar productos..." autocomplete="off">
-            </div>
-        </div>
-
-            <div class="tabla-wrapper">
-                <table class="table table-striped table-hover table-bordered" id="productTable">
-
-                    <thead class="table-white">
-                        <tr>
-                            <th>Código</th>
-                            <th>Nombre</th>
-                            <th>Stock</th>
-                            <th>Precio Unitario</th>
-                            <th>Proveedor</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    @foreach (var item in Model)
+        <div class="productos-wrapper">
+            <div class="table-container" id="tabla-productos">
+            <div class="titulo-tabla">
+            @if (ViewData["ModoPrecioManual"] != null && (bool)ViewData["ModoPrecioManual"] == true)
                     {
-                        string nombre = item.Nombre.Length > 25 ? item.Nombre.Substring(0, 22) + "..." : item.Nombre;
-                        <tr class="fila-producto">
-                            <td>@Html.DisplayFor(modelItem => item.IdProducto)</td>
-                            <td>@nombre</td>
-                            <td>@Html.DisplayFor(modelItem => item.Stock)</td>
-                            <td>@Html.DisplayFor(modelItem => item.PrecioUnitario)</td>
-                            <td>@item.ProveedorNavigation?.Nombre</td>
-                        </tr>
+                        <a href="@Url.Action("Index", "VentaScreen")" class=" btn-precio-manual btn btn-secondary mb-3">Productos</a>
                     }
-                    </tbody>
-                </table>
-            </div>                
+                    else
+                    {
+                        <a href="@Url.Action("PrecioManual", "VentaScreen")" class="btn-precio-manual btn btn-warning mb-3">Precio manual</a>
+                    }
+                <div class="input-group mb-5">
+                    <input type="text" id="busquedaProductos" class="form-control rounded-pill text-center" placeholder="Toque para buscar productos..." autocomplete="off">
+                </div>
+            </div>
 
+                <div class="tabla-wrapper">
+                    <table class="table table-striped table-hover table-bordered" id="productTable">
+
+                        <thead class="table-white">
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Stock</th>
+                                <th>Precio Unitario</th>
+                                <th>Proveedor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model)
+                        {
+                            string nombre = item.Nombre.Length > 25 ? item.Nombre.Substring(0, 22) + "..." : item.Nombre;
+                            <tr class="fila-producto">
+                                <td>@Html.DisplayFor(modelItem => item.IdProducto)</td>
+                                <td>@nombre</td>
+                                <td>@Html.DisplayFor(modelItem => item.Stock)</td>
+                                <td>@Html.DisplayFor(modelItem => item.PrecioUnitario)</td>
+                                <td>@item.ProveedorNavigation?.Nombre</td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>                
+
+            </div>
         </div>
         
         <div id="carrito-ventas-container">

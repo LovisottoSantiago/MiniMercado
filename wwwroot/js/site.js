@@ -97,13 +97,11 @@ function vaciarCarrito() {
     guardarCarritoEnLocalStorage();
     renderizarCarrito();
 }
-
 function renderizarCarrito() {
     const tbody = document.querySelector("#carritoTable tbody");
     tbody.innerHTML = "";
     let totalCarrito = 0;
 
-    // Si el carrito está vacío, mostrar una fila de placeholder
     if (carrito.length === 0) {
         const filaVacia = document.createElement("tr");
         filaVacia.classList.add("fila-producto", "placeholder-row");
@@ -129,28 +127,30 @@ function renderizarCarrito() {
             <td>${p.precio.toFixed(2)}</td>
             <td>${subtotal.toFixed(2)}</td>
             <td>
-                <button class="btn-eliminar" data-id="${p.id}">&times</button>
+                <button class="btn-editar" data-id="${p.id}">✏️</button>
+                <button class="btn-eliminar" data-id="${p.id}">🗑️</button>
             </td>
         `;
 
         tbody.appendChild(fila);
     });
 
-    // Actualizar el total
     document.querySelector(".sub-total-txt h2").textContent = `Total: $${totalCarrito.toFixed(2)}`;
 
-    /* Botón editar cantidad
     document.querySelectorAll(".btn-editar").forEach(btn => {
         btn.addEventListener("click", () => {
             const id = btn.getAttribute("data-id");
             const producto = carrito.find(p => p.id == id);
             if (!producto) return;
 
-            abrirModalCantidad(producto, "cantidad");
+            if (producto.esPrecioManual === true) {
+                abrirModalCantidad(producto, "editarPrecio");
+            } else {
+                abrirModalCantidad(producto, "editarCantidad");
+            }
         });
-    }); */
+    });
 
-    // Botón eliminar producto
     document.querySelectorAll(".btn-eliminar").forEach(btn => {
         btn.addEventListener("click", () => {
             const id = btn.getAttribute("data-id");
@@ -158,8 +158,8 @@ function renderizarCarrito() {
             if (index !== -1) {
                 showConfirm("¿Eliminar este producto del carrito?", () => {
                     carrito.splice(index, 1);
-                    renderizarCarrito();
                     guardarCarritoEnLocalStorage();
+                    renderizarCarrito();
                     if (carrito.length === 0) {
                         document.querySelector(".sub-total-txt h2").textContent = `Total: $0.00`;
                     }
@@ -228,12 +228,25 @@ function abrirModalCantidad(producto = null, modo = "cantidad") {
             inputCantidad.style.display = "block";
             inputCantidad.value = 1;
             inputCantidad.focus();
-        } else if (modo === "precioManual") {
+        } else if (modo === "editarCantidad") {
+            titulo.textContent = `Editar cantidad de "${productoTemporal.nombre}"`;
+            inputCantidad.style.display = "block";
+            inputCantidad.value = productoTemporal.cantidad || 1;
+            inputCantidad.focus();
+
+        } else if (modo === "editarPrecio") {
+            titulo.textContent = `Editar precio de "${productoTemporal.nombre}"`;
+            inputPrecioManual.style.display = "block";
+            inputPrecioManual.value = productoTemporal.precio.toFixed(2);
+            inputPrecioManual.focus();
+        }
+        else if (modo === "precioManual") {
             titulo.textContent = `Ingrese precio para "${productoTemporal.nombre}"`;
             inputPrecioManual.style.display = "block";
             inputPrecioManual.value = "";
             inputPrecioManual.focus();
         }
+
     }, 10); // Pequeño retardo para que el DOM actualice visibilidad
 }
 
@@ -243,6 +256,10 @@ function cerrarModalCantidad() {
     productoTemporal = null;
     modoModal = null;
 }
+
+
+
+
 
 
 document.getElementById("btnConfirmarCantidad").addEventListener("click", () => {
@@ -301,13 +318,47 @@ document.getElementById("btnConfirmarCantidad").addEventListener("click", () => 
             showAlert("Ingrese un precio válido.");
             return;
         }
+        
 
-        agregarAlCarrito({ ...productoTemporal, precio: precioManual, cantidad: 1 });
+        agregarAlCarrito({ ...productoTemporal, precio: precioManual, cantidad: 1, esPrecioManual  : true });
         cerrarModalCantidad();
 
         // Abir de nuevo para pedir el ID si el modo continuo sigue activo
         if (escaneoContinuo) abrirModalCantidad(null, "id");
     }
+    else if (modoModal === "editarCantidad") {
+        const nuevaCantidad = parseInt(document.getElementById("inputCantidad").value, 10);
+        if (isNaN(nuevaCantidad) || nuevaCantidad <= 0) {
+            showAlert("Ingrese una cantidad válida.");
+            return;
+        }
+
+        const producto = carrito.find(p => p.id === productoTemporal.id);
+        if (producto) {
+            producto.cantidad = nuevaCantidad;
+            guardarCarritoEnLocalStorage();
+            renderizarCarrito();
+        }
+
+        cerrarModalCantidad();
+
+    } else if (modoModal === "editarPrecio") {
+        const nuevoPrecio = parseFloat(document.getElementById("inputPrecioManual").value);
+        if (isNaN(nuevoPrecio) || nuevoPrecio <= 0) {
+            showAlert("Ingrese un precio válido.");
+            return;
+        }
+
+        const producto = carrito.find(p => p.id === productoTemporal.id);
+        if (producto) {
+            producto.precio = nuevoPrecio;
+            guardarCarritoEnLocalStorage();
+            renderizarCarrito();
+        }
+
+        cerrarModalCantidad();
+    }
+    
 });
 
 

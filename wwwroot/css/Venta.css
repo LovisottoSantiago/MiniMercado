@@ -3,7 +3,7 @@
     background-color: rgb(255, 255, 255);
     border-radius: 1rem;
     box-shadow: .0625rem 0rem .625rem .25rem #00000024;
-    width: 50rem;
+    width: 60rem;
 }
 
 .text-center {
@@ -43,7 +43,8 @@ a#btn-escanear:hover {
     column-gap: 2rem;
     align-items: flex-start;
     width: max-content;
-    height: 37.5rem;
+    height: 50rem;
+    margin: auto;
 }
 
 
@@ -75,8 +76,9 @@ thead.table-white {
 
 
 .tabla-wrapper {
-    max-height: 25rem;
+    max-height: fit-content;
     /* Alto */
+    width: auto;
     overflow-y: auto;
     box-sizing: border-box;
 }
@@ -112,7 +114,7 @@ a#btn-editar-producto:hover {
 .btn-precio-manual {
     background-color: #1A85FF;
     color: #ffffff;
-    width: 10rem;
+    width: 20rem;
     border-radius: 20rem;
     font-size: 1.1rem;    
     border: none;
@@ -160,6 +162,7 @@ a.btn.btn-sm:hover {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    margin-bottom: -1rem;
     column-gap: 2rem;
     align-content: center;
     justify-content: space-between;
@@ -184,7 +187,8 @@ table.table tbody td:last-child {
 
 
 .tabla-wrapper {
-    max-height: 25rem;
+    max-height: 45rem;
+    height: max-content;
     overflow-y: auto;
     box-sizing: border-box;
     display: flex;
@@ -192,10 +196,6 @@ table.table tbody td:last-child {
 
 table.table-bordered {
     border-collapse: collapse !important;
-}
-
-#carritoTable {
-    width: auto;
 }
 
 div#carrito-ventas-container {
@@ -207,7 +207,6 @@ div#carrito-ventas-container {
     align-items: center;
     padding: .8rem;
     max-width: fit-content;
-    height: 30rem;
     background-color: #EDEDED;
     border-radius: 1.5rem;
     box-shadow: .0625rem 0rem .625rem .25rem #00000024;
@@ -236,13 +235,6 @@ button#btnAgregarId:hover {
 }
 
 
-.tabla-wrapper-ventas {
-    max-height: 16rem;
-    overflow-y: auto;
-    box-sizing: border-box;
-    display: flex;
-    min-height: 16rem;
-}
 
 #productTable th.codigo-col,
 #productTable td.codigo-col {
@@ -272,25 +264,6 @@ button#btnAgregarId:hover {
 #productTable td.nombre-col {
     max-width: 300px;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-#carritoTable td,
-#carritoTable th {
-    white-space: nowrap;
-}
-
-
-#carritoTable td:nth-child(2) {
-    max-width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-#carritoTable td:nth-child(4) {
-    width: 1rem;
-    margin: auto;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -391,61 +364,6 @@ th#columna-total {
 p#vaciar-txt {
     margin: auto;
 }
-
-@media (max-width: 1024px) {
-    .container-chad {
-        flex-direction: column;
-        align-items: center;
-        height: auto;
-        row-gap: 2rem;
-    }
-
-    .table-container {
-        width: 90vw;
-    }
-
-    table.table.table-striped.table-hover.table-bordered {
-        width: 100%;
-        font-size: 0.85rem;
-    }
-
-    div#carrito-ventas-container {
-        width: 90vw;
-        max-width: 100%;
-        height: auto;
-    }
-
-    .venta-btn {
-        width: 100%;
-        max-width: 20rem;
-        height: 6rem;
-    }
-}
-
-@media (max-width: 600px) {
-    .input-group.mb-4 {
-        max-width: 100%;
-    }
-
-    .titulo-tabla {
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .venta-btn h2 {
-        font-size: 1.4rem;
-    }
-
-    div#carrito-ventas-container h2 {
-        font-size: 1.5rem;
-    }
-
-    .table-container {
-        padding: 1rem;
-    }
-}
-
 
 
 /* Modal para ingresar cantidad */
@@ -708,3 +626,121 @@ input#inputId {
 .btn-eliminar:hover {
     color: red;
 }
+
+
+/* Contenedor principal */
+#carrito-ventas-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    background-color: #fdfdfd;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 12px;
+}
+
+/* Título del carrito */
+#carrito-ventas-container h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+    text-align: center;
+}
+
+/* Tabla envoltorio */
+.tabla-wrapper-ventas {
+    overflow-y: auto;
+    height: 25rem;
+    border-radius: 8px;
+}
+
+/* Tabla general */
+#carritoTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    background-color: #fff;
+}
+
+#carritoTable th, #carritoTable td {
+    padding: 0.75rem;
+    text-align: center;
+    border: 1px solid #ddd;
+    min-width: 100px;
+}
+
+/* Estilo de cabecera */
+#carritoTable thead {
+    background-color: #f5f5f5;
+}
+
+#carritoTable th {
+    color: #333;
+    font-weight: bold;
+}
+
+/* Fila de marcador de posición */
+.placeholder-row td {
+    height: 3rem;
+    background-color: #fafafa;
+}
+
+
+
+
+/* Contenedor principal */
+#carrito-ventas-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    background-color: #fdfdfd;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 12px;
+}
+
+/* Título del carrito */
+#carrito-ventas-container h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+    text-align: center;
+}
+
+/* Tabla envoltorio */
+.tabla-wrapper-ventas {
+    overflow-y: auto;
+    height: 25rem;
+    border-radius: 8px;
+}
+
+/* Tabla general */
+#carritoTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    background-color: #fff;
+}
+
+#carritoTable th, #carritoTable td {
+    padding: 0.75rem;
+    text-align: center;
+    border: 1px solid #ddd;
+    min-width: 100px;
+}
+
+/* Estilo de cabecera */
+#carritoTable thead {
+    background-color: #f5f5f5;
+}
+
+#carritoTable th {
+    color: #333;
+    font-weight: bold;
+}
+
+/* Fila de marcador de posición */
+.placeholder-row td {
+    height: 3rem;
+    background-color: #fafafa;
+}
+
+
