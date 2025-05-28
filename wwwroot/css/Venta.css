@@ -177,7 +177,7 @@ a.btn.btn-sm:hover {
 /* Fijar ancho de la ultima columna */
 table.table thead th:last-child,
 table.table tbody td:last-child {
-    width: 8rem;
+    width: min-content;
     white-space: nowrap;
     text-align: center;
 }
@@ -206,7 +206,7 @@ div#carrito-ventas-container {
     justify-content: space-between;
     align-items: center;
     padding: .8rem;
-    max-width: 26rem;
+    max-width: fit-content;
     height: 30rem;
     background-color: #EDEDED;
     border-radius: 1.5rem;
@@ -694,3 +694,17 @@ input#inputId {
     background-color: #00265f; 
   }
 
+
+.btn-editar, .btn-eliminar {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-right: 5px;
+}
+.btn-editar:hover {
+    color: blue;
+}
+.btn-eliminar:hover {
+    color: red;
+}

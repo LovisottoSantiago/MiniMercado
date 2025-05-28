@@ -105,18 +105,18 @@ function renderizarCarrito() {
 
     // Si el carrito está vacío, mostrar una fila de placeholder
     if (carrito.length === 0) {
-            const filaVacia = document.createElement("tr");
-            filaVacia.classList.add("fila-producto", "placeholder-row");
-            filaVacia.innerHTML = `
-                <td style="min-width: 5rem;">&nbsp;</td>
-                <td style="min-width: 8rem;">&nbsp;</td>
-                <td style="min-width: 5rem;">&nbsp;</td>
-                <td style="min-width: 5rem;">&nbsp;</td>
-            `;
-            tbody.appendChild(filaVacia);
-            return;
-        }
-
+        const filaVacia = document.createElement("tr");
+        filaVacia.classList.add("fila-producto", "placeholder-row");
+        filaVacia.innerHTML = `
+            <td style="min-width: 5rem;">&nbsp;</td>
+            <td style="min-width: 8rem;">&nbsp;</td>
+            <td style="min-width: 5rem;">&nbsp;</td>
+            <td style="min-width: 5rem;">&nbsp;</td>
+            <td style="min-width: 5rem;">&nbsp;</td>
+        `;
+        tbody.appendChild(filaVacia);
+        return;
+    }
 
     carrito.forEach(p => {
         const fila = document.createElement("tr");
@@ -124,15 +124,49 @@ function renderizarCarrito() {
         totalCarrito += subtotal;
 
         fila.innerHTML = `
-                <td>${p.cantidad}</td>
-                <td>${acortarNombre(p.nombre)}</td>
-                <td>${p.precio.toFixed(2)}</td>
-                <td>${subtotal.toFixed(2)}</td>
-            `;
+            <td>${p.cantidad}</td>
+            <td>${acortarNombre(p.nombre)}</td>
+            <td>${p.precio.toFixed(2)}</td>
+            <td>${subtotal.toFixed(2)}</td>
+            <td>
+                <button class="btn-eliminar" data-id="${p.id}">&times</button>
+            </td>
+        `;
+
         tbody.appendChild(fila);
     });
 
+    // Actualizar el total
     document.querySelector(".sub-total-txt h2").textContent = `Total: $${totalCarrito.toFixed(2)}`;
+
+    /* Botón editar cantidad
+    document.querySelectorAll(".btn-editar").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const id = btn.getAttribute("data-id");
+            const producto = carrito.find(p => p.id == id);
+            if (!producto) return;
+
+            abrirModalCantidad(producto, "cantidad");
+        });
+    }); */
+
+    // Botón eliminar producto
+    document.querySelectorAll(".btn-eliminar").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const id = btn.getAttribute("data-id");
+            const index = carrito.findIndex(p => p.id == id);
+            if (index !== -1) {
+                showConfirm("¿Eliminar este producto del carrito?", () => {
+                    carrito.splice(index, 1);
+                    renderizarCarrito();
+                    guardarCarritoEnLocalStorage();
+                    if (carrito.length === 0) {
+                        document.querySelector(".sub-total-txt h2").textContent = `Total: $0.00`;
+                    }
+                });
+            }
+        });
+    });
 }
 
 
