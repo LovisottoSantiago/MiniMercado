@@ -121,12 +121,33 @@
 
 
 
+<!-- Modal para seleccionar forma de pago -->
+<div id="modalFormaPago" class="modal-cantidad" style="display:none;">
+  <div class="modal-content-pago">
+    <h3>Seleccione forma de pago</h3>
+
+    <div id="formasPagoButtons" style="display:flex; gap:10px; margin-bottom:15px;">
+      <button type="button" id="btn-efectivo" data-valor="Efectivo">Efectivo</button>
+      <button type="button" id="btn-debito" data-valor="Débito">Débito</button>
+      <button type="button" id="btn-credito" data-valor="Crédito">Crédito</button>
+      <button type="button" id="btn-mp" data-valor="MercadoPago">Mercado Pago</button>
+    </div>
+
+    <div class="modal-buttons">
+      <button id="btnCancelarPago">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+
+
+
 <!-- Modal genérico para alertas y confirmaciones -->
 <div id="customModal">
   <div class="custom-modal-content">
     <p id="customModalMessage"></p>
-    <button id="customModalBtnOk">Aceptar</button>
     <button id="customModalBtnCancel">Cancelar</button>
+    <button id="customModalBtnOk">Aceptar</button>
   </div>
 </div>
 

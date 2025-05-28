@@ -499,15 +499,24 @@ p#vaciar-txt {
   background-color: #000000;
   color: white;
 }
+#btnConfirmarCantidad:hover {
+  background-color: #242424;
+  color: white;
+}
 
 #btnCancelarCantidad {
-  background-color: #dc3545;
+  background-color: #c11f2e;
+  color: white;
+}
+#btnCancelarCantidad:hover {
+  background-color: #81121d;
   color: white;
 }
 
 input#inputId {
     text-align: center;
     height: 2.5rem;
+    border-radius: 1rem;
 }
 
 
@@ -518,7 +527,7 @@ input#inputId {
     background-color: #d1ecf1; /* azul clarito */
 }
 .fila-producto.selected:hover {
-    background-color: #2c79ca !important; /* azul más claro al pasar el mouse */
+    background-color: #d1ecf1 !important; /* azul más claro al pasar el mouse */
 }
 
 /* Hover sobre filas */
@@ -577,3 +586,109 @@ input#inputId {
   40% { box-shadow: 0 2.5em 0 0 }
 }
     
+
+
+
+/* Modal de pago */
+.modal-content-pago {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    text-align: center;
+    width: auto;
+    row-gap: 0.6rem;
+    height: 15rem;
+    display: flex;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content h3 {
+  margin-bottom: 15px;
+}
+
+#formasPagoButtons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 15px;
+  justify-content: center; 
+}
+
+#formasPagoButtons button {
+  background-color: #0e0e0e;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  flex: 1; 
+  max-width: 140px; 
+}
+
+#formasPagoButtons button:hover {
+  background-color: #2e2e2e;
+}
+
+#formasPagoButtons button:active {
+  background-color: #2e2e2e;
+}
+
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+#btnCancelarPago {
+  background-color: #9d1623;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#btnCancelarPago:hover {
+  background-color: #5c0c14;
+}
+
+#btnCancelarPago:focus {
+  outline: 3px solid #ffc107;
+  outline-offset: 2px;
+}
+
+  button#btn-efectivo {
+    background-color: #227c37; 
+  }
+  button#btn-debito {
+    background-color: #3c454e; 
+  }
+  button#btn-credito {
+    background-color: #ff9900; 
+    color: black;
+  }
+  button#btn-mp {
+    background-color: #0053cf; 
+  }
+  button#btn-efectivo:hover {
+    background-color: #0e501d; 
+  }
+  button#btn-debito:hover {
+    background-color: #181a1b; 
+  }
+  button#btn-credito:hover {
+    background-color: #a06102; 
+    color: black;
+  }
+  button#btn-mp:hover {
+    background-color: #00265f; 
+  }

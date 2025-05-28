@@ -68,19 +68,21 @@ namespace MiniMercado.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> RealizarVenta([FromBody] List<DetalleFacturaDTO> productos)
+        public async Task<IActionResult> RealizarVenta([FromQuery] string formaPago, [FromBody]  List<DetalleFacturaDTO> productos)
         {
             if (productos == null || !productos.Any())
                 return BadRequest("El carrito está vacío.");
 
+            // Si no vino nada usamos “Efectivo”
+            formaPago ??= "Efectivo";
+
             var factura = new Factura
             {
-                Fecha = DateTime.Now,
-                FormaPago = "Efectivo", // Valor por defecto, lo cambiamos mas adelante 
-                Total = productos.Sum(p => p.PrecioUnitario * p.Cantidad),
+                Fecha      = DateTime.Now,
+                FormaPago  = formaPago,     
+                Total      = productos.Sum(p => p.PrecioUnitario * p.Cantidad),
                 DetalleFacturas = new List<DetalleFactura>()
             };
-
             foreach (var item in productos)
             {
                 factura.DetalleFacturas.Add(new DetalleFactura

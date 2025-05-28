@@ -268,23 +268,19 @@ document.getElementById("btnAgregarId").addEventListener("click", () => {
 });
 
 
+let ultimaFilaSeleccionada = null;
 
 // Cargar  por doble click en la tabla de productos
-document.addEventListener("DOMContentLoaded", function () {
+function asignarEventosDobleClick() {
     const filas = document.querySelectorAll("#productTable tbody tr");
-    let ultimaFilaSeleccionada = null;
 
     filas.forEach(fila => {
         fila.addEventListener("click", function () {
-            // Remover clase 'selected' de todas las filas
             filas.forEach(f => f.classList.remove("selected"));
-            
-            // Agregar clase 'selected' a la fila actual
             this.classList.add("selected");
 
             const celdas = this.querySelectorAll("td");
 
-            // Doble click simulado: si es la misma fila seleccionada que antes, abrir modal
             if (this === ultimaFilaSeleccionada) {
                 const id = celdas[0].textContent.trim();
 
@@ -314,7 +310,8 @@ document.addEventListener("DOMContentLoaded", function () {
             ultimaFilaSeleccionada = this;
         });
     });
-});
+}
+
 
 
 
@@ -370,55 +367,75 @@ function showConfirm(message, onConfirm, onCancel) {
 // Cuando la página cargue, renderizar carrito desde localStorage
 document.addEventListener("DOMContentLoaded", function () {
     renderizarCarrito();
+    asignarEventosDobleClick();
 });
 
 
 
 
 // Realizar venta
+const modalPago = document.getElementById("modalFormaPago");
+const formasPagoButtons = document.getElementById("formasPagoButtons");
+const btnCancelarPago = document.getElementById("btnCancelarPago");
+
 document.getElementById("btnConfirmarVenta").addEventListener("click", function () {
     if (carrito.length === 0) {
         showAlert("El carrito está vacío.");
         return;
     }
+    modalPago.style.display = "flex"; // Mostrar modal
+});
 
-    showConfirm("¿Confirmar venta?", () => {
-        const ventaData = carrito.map(p => ({
-            idProducto: p.id,
-            cantidad: p.cantidad,
-            precioUnitario: p.precio
-        }));
+// Cerrar modal al cancelar
+btnCancelarPago.addEventListener("click", function () {
+    modalPago.style.display = "none";
+});
 
-        // Mostrar loader
-        document.getElementById("loaderOverlay").style.display = "flex";
+// Evento para todos los botones de forma de pago
+formasPagoButtons.addEventListener("click", function(event) {
+    const button = event.target;
+    if (button.tagName !== "BUTTON") return; // Ignorar clicks fuera de botones
 
-        fetch("/VentaScreen/RealizarVenta", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(ventaData)
-        })
-        .then(response => {
-            if (!response.ok) throw new Error("Error al realizar la venta.");
-            return response.json();
-        })
-        .then(data => {
-            showAlert("Venta realizada con éxito. Nro Factura: " + data.facturaId);
-            vaciarCarrito();
-            renderizarCarrito();
-            recargarTablaProductos();
-        })
-        .catch(error => {
-            console.error(error);
-            showAlert("Hubo un error al procesar la venta.");
-        })
-        .finally(() => {
-            // Ocultar loader
-            document.getElementById("loaderOverlay").style.display = "none";
-        });
+    const formaPago = button.getAttribute("data-valor");
+    if (!formaPago) return;
+
+    modalPago.style.display = "none";
+
+    const ventaData = carrito.map(p => ({
+        idProducto: p.id,
+        cantidad: p.cantidad,
+        precioUnitario: p.precio
+    }));
+
+    // Mostrar loader
+    document.getElementById("loaderOverlay").style.display = "flex";
+
+    fetch(`/VentaScreen/RealizarVenta?formaPago=${encodeURIComponent(formaPago)}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(ventaData)
+    })
+    .then(response => {
+        if (!response.ok) throw new Error("Error al realizar la venta.");
+        return response.json();
+    })
+    .then(data => {
+        showAlert("Venta realizada con éxito. Nro Factura: " + data.facturaId);
+        vaciarCarrito();
+        renderizarCarrito();
+        recargarTablaProductos();
+    })
+    .catch(error => {
+        console.error(error);
+        showAlert("Hubo un error al procesar la venta.");
+    })
+    .finally(() => {
+        document.getElementById("loaderOverlay").style.display = "none";
     });
 });
+
 
 
 // Recargar tabla de productos despues de vender
@@ -448,6 +465,8 @@ function recargarTablaProductos() {
 
                 tbody.appendChild(tr);
             });
+            
+            asignarEventosDobleClick();
         })
         .catch(error => {
             console.error(error);
