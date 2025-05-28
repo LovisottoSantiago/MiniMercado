@@ -5,9 +5,9 @@
     Layout = null; 
 }
 
-<h1>Create</h1>
+<h1>Crear Producto</h1>
 
-<h4>Producto prueba</h4>
+<h4>Seleccione "Crear" para crear el producto</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -40,7 +40,7 @@
             <br>
             <div class="form-group">
                 <input type="hidden" asp-for="Estado" value="true" />
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -49,11 +49,11 @@
 <div>
     @if (ViewData["Origen"]?.ToString() == "preciomanual")
     {
-        <a asp-action="PrecioManual" asp-controller="StockScreen">Back to List</a>
+        <a asp-action="PrecioManual" asp-controller="StockScreen">Volver a la lista de productos</a>
     }
     else
     {
-        <a asp-action="Index" asp-controller="StockScreen">Back to List</a>
+        <a asp-action="Index" asp-controller="StockScreen">Volver a la lista de productos</a>
     }
 </div>
 
