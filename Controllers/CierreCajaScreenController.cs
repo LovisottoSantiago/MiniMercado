@@ -17,19 +17,28 @@ namespace MiniMercado.Controllers
             _context = context;
         }
 
-         public IActionResult Index(bool mostrarTodas = false)
-        {
-            var hoy = DateTime.Today;
+         public IActionResult Index(bool mostrarTodas = false, DateTime? fechaFiltro = null)
+            {
+                var facturas = _context.Factura.AsQueryable(); // Obtener todas las facturas
 
-            var facturas = _context.Factura
-                .Where(f => mostrarTodas || (f.Fecha.HasValue && f.Fecha.Value.Date == hoy))
-                .OrderByDescending(f => f.Fecha)
-                .ToList();
+                if (!mostrarTodas)
+                {
+                    var hoy = DateTime.Today;
+                    facturas = facturas.Where(f => f.Fecha.HasValue && f.Fecha.Value.Date == hoy);
+                }
+                else if (fechaFiltro.HasValue)
+                {
+                    var fecha = fechaFiltro.Value.Date;
+                    facturas = facturas.Where(f => f.Fecha.HasValue && f.Fecha.Value.Date == fecha);
+                }
 
-            ViewData["MostrarTodas"] = mostrarTodas;
+                var lista = facturas.OrderByDescending(f => f.Fecha).ToList();
 
-            return View(facturas);
-        }
+                ViewData["MostrarTodas"] = mostrarTodas;
+                ViewData["FechaFiltro"] = fechaFiltro?.ToString("yyyy-MM-ddTHH:mm"); // formato para input datetime-local
+
+                return View(lista);
+            }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -14,6 +14,20 @@
                 href="@Url.Action("Index", "CierreCajaScreen", new { mostrarTodas = !(bool)(ViewData["MostrarTodas"] ?? false) })">
                 @( (bool)(ViewData["MostrarTodas"] ?? false) ? "Mostrar facturas de hoy" : "Mostrar todas las facturas" )
                 </a>
+                @{
+                    var mostrarTodas = (bool)(ViewData["MostrarTodas"] ?? false); // Determina si se deben mostrar todas las facturas
+                    var fechaFiltro = Context.Request.Query["fechaFiltro"].FirstOrDefault(); // Obtiene la fecha del filtro, si existe
+
+                    }
+
+                    @if (mostrarTodas)
+                    {
+                        <div class="form-group">
+                            <label class="control-label" for="Fecha">Fecha</label>
+                            <input class="form-control" type="date" id="Fecha" name="Fecha" 
+                                value="@fechaFiltro" autocomplete="off">
+                        </div>
+                    }
             <div class="input-group mb-4">
                 <input type="text" id="busquedaFacturas" class="form-control rounded-pill text-center" placeholder="Toque para buscar facturas...">
             </div>
@@ -33,11 +47,11 @@
                 <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr class="fila-factura">
+                    <tr class="fila-factura" data-fecha="@item.Fecha?.ToString("yyyy-MM-dd")">
                         <td>@Html.DisplayFor(modelItem => item.IdFactura)</td>
                         <td>@Html.DisplayFor(modelItem => item.Fecha)</td>
-                        <td>@Html.DisplayFor(modelItem => item.FormaPago)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Total)</td>
+                        <td class="forma-pago">@Html.DisplayFor(modelItem => item.FormaPago)</td>
+                        <td class="monto">@Html.DisplayFor(modelItem => item.Total)</td>
                         <td class="acciones">
                             <a href="#" class="btn btn-sm btn-primary open-modal" data-url="@Url.Action("EditParcial", "Factura", new { id = item.IdFactura })">Editar</a>
                             <a href="#" class="btn btn-sm btn-info open-modal" data-url="@Url.Action("Details", "Factura", new { id = item.IdFactura })">Detalles</a>
@@ -52,17 +66,23 @@
 
         <div class="container-ventas-padre">
             <div class="container-ventas">
-                <h2>Cierre de Caja</h2>
+                <h2>Cierre de Caja hoy</h2>
                 <hr>
                 <p>Total Efectivo:</p>
-                <h1>$28.000</h1>
+                <h1 class="total-efectivo"></h1>
                 <hr>
                 <p>Total Mercado Pago</p>
-                <h1>$12.000</h1>
+                <h1 class="total-mp">$</h1>
+                <hr>
+                <p>Total Debito</p>
+                <h1 class="total-debito">$</h1>
+                <hr>
+                <p>Total Credito</p>
+                <h1 class="total-credito">$</h1>
             </div>
             <div class="total-dinero">
                 <h3>Total</h3>
-                <h1>$420.000</h1>
+                <h1 id="total">$</h1>
             </div>
         </div>
     </div>
@@ -88,32 +108,84 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const filas = document.querySelectorAll(".fila-factura");
+    // Mostrar botones al seleccionar fila
+    const filas = document.querySelectorAll(".fila-factura");
 
-        filas.forEach(fila => {
-            fila.addEventListener("click", function () {
-                document.querySelectorAll(".acciones").forEach(acc => acc.style.visibility = "hidden");
-                filas.forEach(f => f.classList.remove("selected"));
+    filas.forEach(fila => {
+        fila.addEventListener("click", function () {
+            document.querySelectorAll(".acciones").forEach(acc => acc.style.visibility = "hidden");
+            filas.forEach(f => f.classList.remove("selected"));
 
-                const acciones = this.querySelector(".acciones");
-                if (acciones) {
-                    acciones.style.visibility = "visible";
-                    acciones.style.width = "auto";
-                    acciones.style.margin = "auto";
-                    this.classList.add("selected");
-                }
-            });
+            const acciones = this.querySelector(".acciones");
+            if (acciones) {
+                acciones.style.visibility = "visible";
+                acciones.style.width = "auto";
+                acciones.style.margin = "auto";
+                this.classList.add("selected");
+            }
         });
     });
 
-    $(document).on("click", ".open-modal", function (e) {
-        e.preventDefault();
-        var url = $(this).data("url");
-
-        $.get(url, function (data) {
-            $("#facturaModalContent").html(data);
-            $("#facturaModal").modal("show");
+    // Filtro por fecha
+    const inputFecha = document.getElementById("Fecha");
+    if (inputFecha) {
+        inputFecha.addEventListener("change", function () {
+            const fechaSeleccionada = this.value;
+            if (fechaSeleccionada) {
+                const url = `/CierreCajaScreen?fechaFiltro=${encodeURIComponent(fechaSeleccionada)}&mostrarTodas=true`;
+                window.location.href = url;
+            }
         });
+    }
+
+    // Calcular totales
+    console.log("Calculando totales de las facturas...");
+    const totalEfectivo = document.querySelector(".total-efectivo");
+    const totalMP = document.querySelector(".total-mp");
+    const totalDebito = document.querySelector(".total-debito");
+    const totalCredito = document.querySelector(".total-credito");
+    
+    let efectivo = 0;
+    let mercadoPago = 0;
+    let debito = 0;
+    let credito = 0;
+    let totalMonto = 0;
+    const hoy = new Date().toISOString().split("T")[0]; // formato yyyy-MM-dd
+    filas.forEach(fila => {
+        const fecha = fila.getAttribute("data-fecha");
+        if (fecha === hoy){
+            console.log("Procesando fila con fecha:", fecha);
+        const formaPago = fila.querySelector(".forma-pago");
+        const monto = fila.querySelector(".monto");
+        if (formaPago && monto) {
+            const formaPagoText = formaPago.textContent.trim();
+            const montoValue = parseFloat(monto.textContent.replace(/\./g, '').replace(',', '.').replace(/[^0-9.]/g, '').trim());
+
+            if (formaPagoText === "Efectivo") {
+                efectivo += isNaN(montoValue) ? 0 : montoValue;
+            } else if (formaPagoText === "MercadoPago") {
+                mercadoPago += isNaN(montoValue) ? 0 : montoValue;
+            } else if (formaPagoText === "Débito") {
+                debito += isNaN(montoValue) ? 0 : montoValue;
+            } else if (formaPagoText === "Crédito") {
+                credito += isNaN(montoValue) ? 0 : montoValue;
+            }
+
+            totalMonto += isNaN(montoValue) ? 0 : montoValue;
+        }
+        }
     });
+    console.log("Efectivo:", efectivo);
+    console.log("Mercado Pago:", mercadoPago);
+    console.log("Débito:", debito);
+    console.log("Crédito:", credito);
+    console.log("Total:", totalMonto);
+
+    totalEfectivo.textContent = `$${efectivo.toFixed(2)}`;
+    totalMP.textContent = `$${mercadoPago.toFixed(2)}`;
+    totalDebito.textContent = `$${debito.toFixed(2)}`;
+    totalCredito.textContent = `$${credito.toFixed(2)}`;
+    total.textContent = `$${totalMonto.toFixed(2)}`;
+});
 </script>
 
