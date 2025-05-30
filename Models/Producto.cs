@@ -9,9 +9,14 @@ public partial class Producto
 {
     [Key] public int IdProducto { get; set; }
 
+    [MaxLength(50, ErrorMessage = "El código del producto no puede exceder los 50 caracteres.")]
+    public string? CodigoDeBarra { get; set; }
+
     public bool EsPrecioManual { get; set; } = false;
 
     public string Nombre { get; set; } = null!;
+
+    public string? Categoria { get; set; }
 
     public decimal? PrecioUnitario { get; set; }
 

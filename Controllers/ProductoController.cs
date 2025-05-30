@@ -59,14 +59,26 @@ namespace MiniMercado.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdProducto,Nombre,PrecioUnitario,Stock,Proveedor,Estado,EsPrecioManual")] Producto producto)
+        public async Task<IActionResult> Create([Bind("IdProducto,CodigoDeBarra,Nombre,Categoria,PrecioUnitario,Stock,Proveedor,Estado,EsPrecioManual")] Producto producto)
         {
             // Si es precio manual, ignorar precio y stock (o validarlos según lógica)
             if (producto.EsPrecioManual)
             {
                 producto.PrecioUnitario = null;
                 producto.Stock = null;
+                producto.CodigoDeBarra = null; // Si es manual, no se usa código de barra
             }
+            else
+            {
+                 bool existeCodigo = await _context.Producto
+            .AnyAsync(p => p.CodigoDeBarra == producto.CodigoDeBarra);
+
+                if (existeCodigo)
+                {
+                    ModelState.AddModelError("CodigoDeBarra", "El código de barra ya está en uso.");
+                }
+            }
+            
 
             if (ModelState.IsValid)
             {
@@ -101,7 +113,7 @@ namespace MiniMercado.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdProducto,Nombre,PrecioUnitario,Stock,Proveedor,Estado,EsPrecioManual")] Producto producto)
+        public async Task<IActionResult> Edit(int id, [Bind("IdProducto,CodigoDeBarra,Nombre,Categoria,PrecioUnitario,Stock,Proveedor,Estado,EsPrecioManual")] Producto producto)
         {
             if (id != producto.IdProducto)
             {
@@ -117,6 +129,7 @@ namespace MiniMercado.Controllers
                     {
                         producto.PrecioUnitario = null;
                         producto.Stock = null;
+                        producto.CodigoDeBarra = null; // Si es manual, no se usa código de barra
                     }
 
                     _context.Update(producto);
@@ -230,8 +243,27 @@ namespace MiniMercado.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateParcial([Bind("IdProducto,Nombre,PrecioUnitario,Stock,Proveedor,Estado,EsPrecioManual")] Producto producto)
+        public async Task<IActionResult> CreateParcial([Bind("IdProducto,CodigoDeBarra,Nombre,Categoria,PrecioUnitario,Stock,Proveedor,Estado,EsPrecioManual")] Producto producto)
         {
+             if (producto.EsPrecioManual)
+            {
+                producto.PrecioUnitario = null;
+                producto.Stock = null;
+                producto.CodigoDeBarra = null; // Si es manual, no se usa código de barra
+            }
+            else
+            {
+                 bool existeCodigo = await _context.Producto
+                .AnyAsync(p => p.CodigoDeBarra == producto.CodigoDeBarra);
+
+                if (existeCodigo)
+                {
+                    ViewBag.AlertaCodigo = "El código de barras ya está en uso.";
+                    ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre", producto.Proveedor);
+                    return View(producto);
+                }
+            }
+            
             if (ModelState.IsValid)
             {
                 _context.Add(producto);
@@ -264,7 +296,7 @@ namespace MiniMercado.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditParcial(int id, [Bind("IdProducto,Nombre,PrecioUnitario,Stock,Proveedor,Estado,EsPrecioManual")] Producto producto)
+        public async Task<IActionResult> EditParcial(int id, [Bind("IdProducto,CodigoDeBarra,Nombre,Categoria,PrecioUnitario,Stock,Proveedor,Estado,EsPrecioManual")] Producto producto)
         {
             if (id != producto.IdProducto)
             {
@@ -279,6 +311,7 @@ namespace MiniMercado.Controllers
                     {
                         producto.PrecioUnitario = null;
                         producto.Stock = null;
+                        producto.CodigoDeBarra = null; // Si es manual, no se usa código de barra
                     }
 
                     _context.Update(producto);

@@ -271,7 +271,7 @@ document.getElementById("btnConfirmarCantidad").addEventListener("click", () => 
         }
 
         // Buscar producto por ID
-        fetch(`/VentaScreen/ObtenerProducto?id=${idIngresado}`)
+        fetch(`/VentaScreen/ObtenerProducto?CodigoDeBarra=${idIngresado}`)
             .then(response => {
                 if (!response.ok) {
                     showAlert("Producto no encontrado");
@@ -391,7 +391,7 @@ function asignarEventosDobleClick() {
             if (this === ultimaFilaSeleccionada) {
                 const id = celdas[0].textContent.trim();
 
-                fetch(`/VentaScreen/ObtenerProducto?id=${id}`)
+                fetch(`/VentaScreen/ObtenerProducto?CodigoDeBarra=${id}`)
                     .then(response => {
                         if (!response.ok) throw new Error("Producto no encontrado");
                         return response.json();

@@ -1,17 +1,17 @@
 @model MiniMercado.Models.Producto
 
 @{
-    ViewData["Title"] = "CreateParcial";
-    Layout = null; 
+    ViewData["Title"] = "Create";
+    Layout = null;
 }
 
-<h1>Crear Producto</h1>
+<h1>Create</h1>
 
-<h4>Seleccione "Crear" para crear el producto</h4>
+<h4>Producto</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="CreateParcial">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group form-check">
                 <input asp-for="EsPrecioManual" class="form-check-input" type="checkbox" />
@@ -22,10 +22,9 @@
                 <input asp-for="Nombre" class="form-control" />
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Categoria" class="control-label"></label>
+            <div class="form-grorup">
+                <label asp-formaction="Categoria" class="control-label"></label>
                 <select asp-for="Categoria" class="form-control" asp-items="ViewBag.Categoria"></select>
-               
             </div>
             <div class="form-group">
                 <label asp-for="PrecioUnitario" class="control-label"></label>
@@ -38,44 +37,38 @@
                 <span asp-validation-for="Stock" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Proveedor" class="control-label"></label>
+                <select asp-for="Proveedor" class ="form-control" asp-items="ViewBag.Proveedor"></select>
+                <a href="#" class="btn btn-sm btn-primary open-modal" id="crear-categoria"
+                 data-url="@Url.Action("CreateParcial", "Proveedor")">
+                 Crear Proveedor
+                </a>
+            </div>
+            <div class="form-group">
                 <label asp-for="CodigoDeBarra" class="control-label"></label>
                 <input asp-for="CodigoDeBarra" class ="form-control"/>
                 <span asp-validation-for="CodigoDeBarra" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Proveedor" class="control-label"></label>
-                <select asp-for="Proveedor" class="form-control" asp-items="ViewBag.Proveedor"></select>
-                <span asp-validation-for="Proveedor" class="text-danger"></span>
-                 <a href="#" class="btn btn-sm btn-primary open-modal" id="crear-categoria"
-                 data-url="@Url.Action("CreateParcial", "Proveedor")">
-                 Crear Proveedor
-                </a>
+                <label asp-for="Estado" class="control-label"></label>
+                <input asp-for="Estado" class="form-control" />
+                <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
-            <br>
             <div class="form-group">
-                <input type="hidden" asp-for="Estado" value="true" />
-                <input type="submit" value="Crear" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    @if (ViewData["Origen"]?.ToString() == "preciomanual")
-    {
-        <a asp-action="PrecioManual" asp-controller="StockScreen">Volver a la lista de productos</a>
-    }
-    else
-    {
-        <a asp-action="Index" asp-controller="StockScreen">Volver a la lista de productos</a>
-    }
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-<script>
 
+    <script>
     const checkbox = document.getElementById("EsPrecioManual");
     const precioInput = document.getElementById("PrecioUnitario");
     const stockInput = document.getElementById("Stock");
@@ -91,3 +84,4 @@
     // Ejecutar al cargar
     toggleCampos();
 </script>
+}

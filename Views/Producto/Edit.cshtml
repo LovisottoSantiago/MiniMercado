@@ -23,6 +23,10 @@
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Categoria" class="control-label"></label>
+                <select asp-for="Categoria" class="form-control" asp-items="ViewBag.Categoria"></select>
+            </div>
+            <div class="form-group">
                 <label asp-for="PrecioUnitario" class="control-label"></label>
                 <input asp-for="PrecioUnitario" class="form-control" />
                 <span asp-validation-for="PrecioUnitario" class="text-danger"></span>
@@ -36,6 +40,15 @@
                 <label asp-for="Proveedor" class="control-label"></label>
                 <select asp-for="Proveedor" class="form-control" asp-items="ViewBag.Proveedor"></select>
                 <span asp-validation-for="Proveedor" class="text-danger"></span>
+                <a href="#" class="btn btn-sm btn-primary open-modal" id="crear-categoria"
+                 data-url="@Url.Action("CreateParcial", "Proveedor")">
+                 Crear Proveedor
+                </a>
+            </div>
+            <div class=" form-group">
+                <label asp-for="CodigoDeBarra" class="control-label"></label>
+                <input asp-for="CodigoDeBarra" class="form-control" />
+                <span asp-validation-for="CodigoDeBarra" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Estado" class="control-label"></label>
