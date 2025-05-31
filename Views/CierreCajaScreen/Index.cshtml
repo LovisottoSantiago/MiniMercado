@@ -187,5 +187,22 @@
     totalCredito.textContent = `$${credito.toFixed(2)}`;
     total.textContent = `$${totalMonto.toFixed(2)}`;
 });
+
+
+
+
+$(document).ready(function () {
+    $('.open-modal').on('click', function (e) {
+        e.preventDefault();
+
+        var url = $(this).data('url');
+
+        // Cargar contenido de la vista parcial
+        $('#facturaModalContent').load(url, function () {
+            $('#facturaModal').modal('show');
+        });
+    });
+});
+
 </script>
 
