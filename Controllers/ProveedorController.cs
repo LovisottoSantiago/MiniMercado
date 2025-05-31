@@ -67,6 +67,26 @@ namespace MiniMercado.Controllers
             return View(proveedor);
         }
 
+        public IActionResult CreateParcial()
+        {
+            var proveedor = new Proveedor();
+            return PartialView(proveedor);
+        }
+
+        // POST: Proveedor/CreateParcial
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateParcial([Bind("IdProveedor,Nombre,Email,Telefono,Direccion")] Proveedor proveedor)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(proveedor);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "StockScreen");
+            }
+            return PartialView("proveedor", proveedor);
+        }
+
         // GET: Proveedor/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

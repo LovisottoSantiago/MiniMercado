@@ -49,11 +49,11 @@ namespace MiniMercado.Controllers
 
 
         [HttpGet]
-        public IActionResult ObtenerProducto(int id)
+        public IActionResult ObtenerProducto(string CodigoDeBarra)
         {
             var producto = _context.Producto
                 .Include(p => p.ProveedorNavigation)
-                .FirstOrDefault(p => p.IdProducto == id);
+                .FirstOrDefault(p => p.CodigoDeBarra == CodigoDeBarra);
 
             if (producto == null)
                 return NotFound();

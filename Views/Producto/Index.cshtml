@@ -16,6 +16,9 @@
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.PrecioUnitario)
             </th>
             <th>
@@ -23,6 +26,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoDeBarra)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ProveedorNavigation)
@@ -37,6 +43,9 @@
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Categoria)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.PrecioUnitario)
             </td>
             <td>
@@ -44,6 +53,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoDeBarra)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ProveedorNavigation.IdProveedor)

@@ -40,7 +40,7 @@
                         {
                             string nombre = item.Nombre.Length > 25 ? item.Nombre.Substring(0, 22) + "..." : item.Nombre;
                             <tr class="fila-producto">
-                                <td>@Html.DisplayFor(modelItem => item.IdProducto)</td>
+                                <td>@Html.DisplayFor(modelItem => item.CodigoDeBarra)</td>
                                 <td>@nombre</td>
                                 <td>@Html.DisplayFor(modelItem => item.Stock)</td>
                                 <td>@Html.DisplayFor(modelItem => item.PrecioUnitario)</td>
