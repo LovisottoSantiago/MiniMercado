@@ -47,10 +47,11 @@ namespace MiniMercado.Controllers
         }
 
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult AgregarCategoria([FromBody] string nuevaCategoria)
         {
-            var rutaArchivo = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/js/categorias.json");
+            var rutaArchivo = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/data/categorias.json");
 
             var json = System.IO.File.ReadAllText(rutaArchivo);
             var lista = JsonSerializer.Deserialize<List<Categoria>>(json) ?? new List<Categoria>();
@@ -71,7 +72,13 @@ namespace MiniMercado.Controllers
         [HttpGet]
         public IActionResult GetCategorias()
         {
-            var rutaArchivo = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/js/categorias.json");
+            var rutaArchivo = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/data/categorias.json");
+
+            if (!System.IO.File.Exists(rutaArchivo))
+            {
+                return NotFound(new { error = "Archivo de categorías no encontrado" });
+            }
+
             var json = System.IO.File.ReadAllText(rutaArchivo);
             return Content(json, "application/json");
         }

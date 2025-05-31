@@ -51,7 +51,7 @@
                         <td>@Html.DisplayFor(modelItem => item.IdFactura)</td>
                         <td>@Html.DisplayFor(modelItem => item.Fecha)</td>
                         <td class="forma-pago">@Html.DisplayFor(modelItem => item.FormaPago)</td>
-                        <td class="monto">@Html.DisplayFor(modelItem => item.Total)</td>
+                        <td class="monto">@item.Total?.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)</td>
                         <td class="acciones">
                             <a href="#" class="btn btn-sm btn-primary open-modal" data-url="@Url.Action("EditParcial", "Factura", new { id = item.IdFactura })">Editar</a>
                             <a href="#" class="btn btn-sm btn-info open-modal" data-url="@Url.Action("Details", "Factura", new { id = item.IdFactura })">Detalles</a>
@@ -168,7 +168,8 @@
             const monto = fila.querySelector(".monto");
             if (formaPago && monto) {
                 const formaPagoText = formaPago.textContent.trim();
-                const montoValue = parseFloat(monto.textContent.replace(/\./g, '').replace(',', '.').replace(/[^0-9.]/g, '').trim());
+                const montoValue = parseFloat(monto.textContent.trim());
+
 
                 if (formaPagoText === "Efectivo") efectivo += isNaN(montoValue) ? 0 : montoValue;
                 else if (formaPagoText === "MercadoPago") mercadoPago += isNaN(montoValue) ? 0 : montoValue;
