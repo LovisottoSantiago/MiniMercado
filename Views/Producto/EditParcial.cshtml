@@ -6,64 +6,78 @@
 }
 
 <h1>Editar Producto</h1>
-
-<h4>Seleccione "guardar cambios" para guardar nueva informacion</h4>
+<h4>Seleccione "Guardar Cambios" para guardar la nueva información</h4>
 <hr />
+
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="EditParcial">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="col-md-6">
+        <form asp-action="EditParcial" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
             <input type="hidden" asp-for="IdProducto" />
-            <div class="form-group form-check">
+
+            <div class="form-group form-check mb-3">
                 <input asp-for="EsPrecioManual" class="form-check-input" type="checkbox" id="EsPrecioManual" />
                 <label asp-for="EsPrecioManual" class="form-check-label">Precio Manual</label>
             </div>
-            <div class="form-group">
+
+            <div class="form-group mb-3">
                 <label asp-for="Nombre" class="control-label"></label>
                 <input asp-for="Nombre" class="form-control" />
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Categoria" class="control-label"></label>
-                <select asp-for="Categoria" class="form-control" asp-items="ViewBag.Categoria"></select>
+
+            <div class="form-group mb-3">
+                <label for="categoriaSelect">Categoría</label>
+                <div class="d-flex gap-2">
+                    <select id="categoriaSelect" name="Categoria" class="form-control w-75">
+                        <!-- Opciones se cargan con JS -->
+                    </select>
+                    <button type="button" id="btnCrearCategoria" class="btn btn-outline-secondary w-25">
+                        Crear
+                    </button>
+                </div>
             </div>
-            <div class="form-group">
+
+            <div class="form-group mb-3">
                 <label asp-for="PrecioUnitario" class="control-label"></label>
-                <input asp-for="PrecioUnitario" class="form-control" />
+                <input asp-for="PrecioUnitario" class="form-control" id="PrecioUnitario" />
                 <span asp-validation-for="PrecioUnitario" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <div class="form-group mb-3">
                 <label asp-for="Stock" class="control-label"></label>
-                <input asp-for="Stock" class="form-control" />
+                <input asp-for="Stock" class="form-control" id="Stock" />
                 <span asp-validation-for="Stock" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <div class="form-group mb-3">
                 <label asp-for="Proveedor" class="control-label"></label>
-                <select asp-for="Proveedor" class="form-control" asp-items="ViewBag.Proveedor"></select>
+                <div class="d-flex gap-2">
+                    <select asp-for="Proveedor" class="form-control w-75" asp-items="ViewBag.Proveedor"></select>
+                    <a href="#" class="btn btn-outline-primary w-25 open-modal"
+                       data-url="@Url.Action("CreateParcial", "Proveedor")">
+                        Crear
+                    </a>
+                </div>
                 <span asp-validation-for="Proveedor" class="text-danger"></span>
-                <a href="#" class="btn btn-sm btn-primary open-modal" id="crear-categoria"
-                 data-url="@Url.Action("CreateParcial", "Proveedor")">
-                 Crear Proveedor
-                </a>
             </div>
-            <div class="form-group">
+
+            <div class="form-group mb-3">
                 <label asp-for="CodigoDeBarra" class="control-label"></label>
                 <input asp-for="CodigoDeBarra" class="form-control" />
                 <span asp-validation-for="CodigoDeBarra" class="text-danger"></span>
             </div>
+
+
+
             <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
-                <span asp-validation-for="Estado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
+                <input type="submit" value="Guardar Cambios" class="btn btn-primary w-100" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
+<div class="mt-4">
     @if (ViewData["Origen"]?.ToString() == "preciomanual")
     {
         <a asp-action="PrecioManual" asp-controller="StockScreen">Volver a la lista de productos</a>
@@ -79,17 +93,74 @@
 }
 
 <script>
-        const checkbox = document.getElementById("EsPrecioManual");
+    const checkbox = document.getElementById("EsPrecioManual");
     const precioInput = document.getElementById("PrecioUnitario");
     const stockInput = document.getElementById("Stock");
 
     function toggleCampos() {
         const esManual = checkbox.checked;
-
         precioInput.readOnly = esManual;
         stockInput.readOnly = esManual;
     }
 
     checkbox.addEventListener("change", toggleCampos);
     toggleCampos();
-    </script>
+
+    const categoriaSelect = document.getElementById("categoriaSelect");
+    const btnCrearCategoria = document.getElementById("btnCrearCategoria");
+    let categorias = [];
+
+    // Obtener la categoría actual para marcarla seleccionada
+    const categoriaActual = '@Model.Categoria';
+
+    function renderizarCategorias() {
+        categoriaSelect.innerHTML = "";
+        categorias.forEach(categoria => {
+            const option = document.createElement("option");
+            option.value = categoria.nombre;
+            option.textContent = categoria.nombre;
+            if (categoria.nombre === categoriaActual) {
+                option.selected = true;
+            }
+            categoriaSelect.appendChild(option);
+        });
+    }
+
+    function cargarCategorias() {
+        fetch('/StockScreen/GetCategorias?t=' + new Date().getTime())
+            .then(response => response.json())
+            .then(data => {
+                categorias = data;
+                renderizarCategorias();
+            })
+            .catch(error => console.error("Error al cargar categorías:", error));
+    }
+
+    btnCrearCategoria.addEventListener("click", () => {
+        const nuevaCategoria = prompt("Ingrese el nombre de la nueva categoría:");
+        if (!nuevaCategoria) return;
+
+        fetch("/StockScreen/AgregarCategoria", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(nuevaCategoria)
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => { throw new Error(text); });
+            }
+            return response;
+        })
+        .then(() => cargarCategorias())
+        .then(() => {
+            categoriaSelect.value = nuevaCategoria;
+        })
+        .catch(error => {
+            alert("Error: " + error.message);
+        });
+    });
+
+    cargarCategorias();
+</script>

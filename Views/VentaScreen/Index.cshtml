@@ -186,6 +186,20 @@
         }
     });
 
+
+
+const inputCantidad = document.getElementById('inputCantidad');
+
+inputCantidad.addEventListener('focus', () => {
+    inputCantidad.value = '';
+});
+
+inputCantidad.addEventListener('blur', () => {
+    if (inputCantidad.value.trim() === '') {
+        inputCantidad.value = '1';
+    }
+});
+
 </script>
 @*
 @section Scripts {

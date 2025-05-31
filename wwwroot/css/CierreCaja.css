@@ -56,18 +56,20 @@
     align-content: center;
   }
   
-  .btn-todas-facturas {
+
+.btn-todas-facturas {
     background-color: #1A85FF;
     color: #ffffff;
-    width: 10rem;
+    width: 25rem;
     border-radius: 20rem;
-    font-size: 1.1rem;    
+    font-size: 1.1rem;
     border: none;
     text-align: center;
+    font-size: 1.05rem;
     display: inline-block;
     padding: 0.5rem 1rem;
     text-decoration: none;
-  }
+}
   
   .btn-todas-facturas:hover {
     background-color: #034a9b;

@@ -188,4 +188,21 @@
 });
 
 
+
+
+$(document).ready(function () {
+    $('.open-modal').on('click', function (e) {
+        e.preventDefault();
+
+        var url = $(this).data('url');
+
+        // Cargar contenido de la vista parcial
+        $('#facturaModalContent').load(url, function () {
+            $('#facturaModal').modal('show');
+        });
+    });
+});
+
+
+
 </script>
