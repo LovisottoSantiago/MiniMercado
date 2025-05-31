@@ -66,7 +66,7 @@
 
         <div class="container-ventas-padre">
             <div class="container-ventas">
-                <h2>Cierre de Caja hoy</h2>
+                <h2>Cierre de Caja <span id="fecha-cierre"></h2>
                 <hr>
                 <p>Total Efectivo:</p>
                 <h1 class="total-efectivo"></h1>
@@ -82,7 +82,7 @@
             </div>
             <div class="total-dinero">
                 <h3>Total</h3>
-                <h1 id="total">$</h1>
+                <h1 class="total">$</h1>
             </div>
         </div>
     </div>
@@ -107,7 +107,12 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+   document.addEventListener("DOMContentLoaded", function () {
+    function obtenerParametroUrl(nombre) {
+        const params = new URLSearchParams(window.location.search);
+        return params.get(nombre);
+    }
+
     // Mostrar botones al seleccionar fila
     const filas = document.querySelectorAll(".fila-factura");
 
@@ -126,60 +131,54 @@
         });
     });
 
-    // Filtro por fecha
+    // Filtro por fecha (y establecer valor del input)
     const inputFecha = document.getElementById("Fecha");
+    const fechaFiltro = obtenerParametroUrl("fechaFiltro") ?? new Date().toLocaleDateString('sv-SE');
+    const fechaCierre = document.getElementById("fecha-cierre");
+    if (fechaCierre) {
+        fechaCierre.textContent = fechaFiltro;
+    }
+    
     if (inputFecha) {
+        inputFecha.value = fechaFiltro;
+
         inputFecha.addEventListener("change", function () {
             const fechaSeleccionada = this.value;
             if (fechaSeleccionada) {
-                const url = `/CierreCajaScreen?fechaFiltro=${encodeURIComponent(fechaSeleccionada)}&mostrarTodas=true`;
+                const url = `/CierreCajaScreen/Index?fechaFiltro=${encodeURIComponent(fechaSeleccionada)}&mostrarTodas=true`;
                 window.location.href = url;
             }
         });
     }
 
     // Calcular totales
-    console.log("Calculando totales de las facturas...");
     const totalEfectivo = document.querySelector(".total-efectivo");
     const totalMP = document.querySelector(".total-mp");
     const totalDebito = document.querySelector(".total-debito");
     const totalCredito = document.querySelector(".total-credito");
-    
-    let efectivo = 0;
-    let mercadoPago = 0;
-    let debito = 0;
-    let credito = 0;
-    let totalMonto = 0;
-    const hoy = new Date().toISOString().split("T")[0]; // formato yyyy-MM-dd
+    const total = document.querySelector(".total");
+
+    let efectivo = 0, mercadoPago = 0, debito = 0, credito = 0, totalMonto = 0;
+
     filas.forEach(fila => {
         const fecha = fila.getAttribute("data-fecha");
-        if (fecha === hoy){
-            console.log("Procesando fila con fecha:", fecha);
-        const formaPago = fila.querySelector(".forma-pago");
-        const monto = fila.querySelector(".monto");
-        if (formaPago && monto) {
-            const formaPagoText = formaPago.textContent.trim();
-            const montoValue = parseFloat(monto.textContent.replace(/\./g, '').replace(',', '.').replace(/[^0-9.]/g, '').trim());
 
-            if (formaPagoText === "Efectivo") {
-                efectivo += isNaN(montoValue) ? 0 : montoValue;
-            } else if (formaPagoText === "MercadoPago") {
-                mercadoPago += isNaN(montoValue) ? 0 : montoValue;
-            } else if (formaPagoText === "Débito") {
-                debito += isNaN(montoValue) ? 0 : montoValue;
-            } else if (formaPagoText === "Crédito") {
-                credito += isNaN(montoValue) ? 0 : montoValue;
+        if (fecha === fechaFiltro) {
+            const formaPago = fila.querySelector(".forma-pago");
+            const monto = fila.querySelector(".monto");
+            if (formaPago && monto) {
+                const formaPagoText = formaPago.textContent.trim();
+                const montoValue = parseFloat(monto.textContent.replace(/\./g, '').replace(',', '.').replace(/[^0-9.]/g, '').trim());
+
+                if (formaPagoText === "Efectivo") efectivo += isNaN(montoValue) ? 0 : montoValue;
+                else if (formaPagoText === "MercadoPago") mercadoPago += isNaN(montoValue) ? 0 : montoValue;
+                else if (formaPagoText === "Débito") debito += isNaN(montoValue) ? 0 : montoValue;
+                else if (formaPagoText === "Crédito") credito += isNaN(montoValue) ? 0 : montoValue;
+
+                totalMonto += isNaN(montoValue) ? 0 : montoValue;
             }
-
-            totalMonto += isNaN(montoValue) ? 0 : montoValue;
-        }
         }
     });
-    console.log("Efectivo:", efectivo);
-    console.log("Mercado Pago:", mercadoPago);
-    console.log("Débito:", debito);
-    console.log("Crédito:", credito);
-    console.log("Total:", totalMonto);
 
     totalEfectivo.textContent = `$${efectivo.toFixed(2)}`;
     totalMP.textContent = `$${mercadoPago.toFixed(2)}`;
@@ -187,5 +186,6 @@
     totalCredito.textContent = `$${credito.toFixed(2)}`;
     total.textContent = `$${totalMonto.toFixed(2)}`;
 });
-</script>
 
+
+</script>

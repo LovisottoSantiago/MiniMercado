@@ -23,21 +23,21 @@ namespace MiniMercado.Controllers
         {
             var facturas = _context.Factura.AsQueryable(); // Obtener todas las facturas
 
-            if (!mostrarTodas)
-            {
-                var hoy = DateTime.Today;
-                facturas = facturas.Where(f => f.Fecha.HasValue && f.Fecha.Value.Date == hoy);
-            }
-            else if (fechaFiltro.HasValue)
+            if (fechaFiltro.HasValue)
             {
                 var fecha = fechaFiltro.Value.Date;
                 facturas = facturas.Where(f => f.Fecha.HasValue && f.Fecha.Value.Date == fecha);
+            }
+            else if (!mostrarTodas)
+            {
+                var hoy = DateTime.Today;
+                facturas = facturas.Where(f => f.Fecha.HasValue && f.Fecha.Value.Date == hoy);
             }
 
             var lista = facturas.OrderByDescending(f => f.Fecha).ToList();
 
             ViewData["MostrarTodas"] = mostrarTodas;
-            ViewData["FechaFiltro"] = fechaFiltro?.ToString("yyyy-MM-ddTHH:mm"); // formato para input datetime-local
+            ViewData["FechaFiltro"] = fechaFiltro?.ToString("yyyy-MM-dd");
 
             return View(lista);
         }
