@@ -40,6 +40,17 @@
     </div>
 </div>
 
+    <div class="mt-4">
+    @if (ViewData["Origen"]?.ToString() == "preciomanual")
+    {
+        <a asp-action="PrecioManual" asp-controller="StockScreen">Volver a la lista de productos</a>
+    }
+    else
+    {
+        <a asp-action="Index" asp-controller="StockScreen">Volver a la lista de productos</a>
+    }
+    </div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 

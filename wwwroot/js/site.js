@@ -529,10 +529,12 @@ formasPagoButtons.addEventListener("click", function(event) {
         return response.json();
     })
     .then(data => {
-        showAlert("Venta realizada con éxito. Nro Factura: " + data.facturaId);
-        vaciarCarrito();
-        renderizarCarrito();
-        recargarTablaProductos();
+        showAlert("Venta realizada con éxito. Nro Factura: " + data.facturaId, () => {
+            vaciarCarrito();
+            renderizarCarrito();
+            location.reload(); // Recarga la página luego de cerrar el alert
+        });
+
     })
     .catch(error => {
         console.error(error);
