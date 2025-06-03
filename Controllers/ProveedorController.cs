@@ -82,7 +82,7 @@ namespace MiniMercado.Controllers
             {
                 _context.Add(proveedor);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("CrearPartial", "Producto");
+                return RedirectToAction("Index", "StockScreen");
             }
             return PartialView("proveedor", proveedor);
         }

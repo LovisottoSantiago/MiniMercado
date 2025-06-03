@@ -66,7 +66,6 @@ namespace MiniMercado.Controllers
             {
                 producto.PrecioUnitario = null;
                 producto.Stock = null;
-                producto.CodigoDeBarra = null; // Si es manual, no se usa código de barra
             }
             else
             {
@@ -129,7 +128,6 @@ namespace MiniMercado.Controllers
                     {
                         producto.PrecioUnitario = null;
                         producto.Stock = null;
-                        producto.CodigoDeBarra = null; // Si es manual, no se usa código de barra
                     }
 
                     _context.Update(producto);
@@ -249,7 +247,6 @@ namespace MiniMercado.Controllers
             {
                 producto.PrecioUnitario = null;
                 producto.Stock = null;
-                producto.CodigoDeBarra = null; // Si es manual, no se usa código de barra
             }
             else
             {
@@ -311,7 +308,6 @@ namespace MiniMercado.Controllers
                     {
                         producto.PrecioUnitario = null;
                         producto.Stock = null;
-                        producto.CodigoDeBarra = null; // Si es manual, no se usa código de barra
                     }
 
                     _context.Update(producto);
