@@ -10,7 +10,11 @@
         <div class="productos-wrapper">
             <div class="table-container" id="tabla-productos">
             <div class="titulo-tabla">
-            @if (ViewData["ModoPrecioManual"] != null && (bool)ViewData["ModoPrecioManual"] == true)
+            @{
+                bool modoPrecioManual = ViewData["ModoPrecioManual"] as bool? ?? false;
+            }
+
+            @if (modoPrecioManual)
                     {
                         <a href="@Url.Action("Index", "VentaScreen")" class=" btn-precio-manual btn btn-secondary mb-3">Productos</a>
                     }
@@ -38,6 +42,9 @@
                         <tbody>
                         @foreach (var item in Model)
                         {
+                            @if(item.Estado == true)
+                            {
+                                // Si el nombre es muy largo, lo truncamos a 25 caracteres y agregamos "..."
                             string nombre = item.Nombre.Length > 25 ? item.Nombre.Substring(0, 22) + "..." : item.Nombre;
                             <tr class="fila-producto">
                                 <td>@Html.DisplayFor(modelItem => item.CodigoDeBarra)</td>
@@ -46,6 +53,7 @@
                                 <td>@Html.DisplayFor(modelItem => item.PrecioUnitario)</td>
                                 <td>@item.ProveedorNavigation?.Nombre</td>
                             </tr>
+                            }
                         }
                         </tbody>
                     </table>

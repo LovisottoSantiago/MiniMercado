@@ -5,30 +5,32 @@
     Layout = "~/Views/Shared/_StockScreenLayout.cshtml";
 }
 
+
 <div class="container mt-5">
     <div class="container-chad">
         <div class="table-container" style="max-height:50rem; overflow-y: auto;">
-        <div class="titulo-tabla">
-            @if (ViewData["ModoPrecioManual"] != null && (bool)ViewData["ModoPrecioManual"] == true)
+            <div class="titulo-tabla">
+                @if (ViewData["ModoPrecioManual"] != null && (bool)ViewData["ModoPrecioManual"])
                 {
-                    <a href="@Url.Action("Index", "StockScreen")" class=" btn-precio-manual btn btn-secondary mb-3">Productos</a>
+                    <a href="@Url.Action("Index", "StockScreen")" class="btn-precio-manual btn btn-secondary mb-3">Productos</a>
                 }
                 else
                 {
                     <a href="@Url.Action("PrecioManual", "StockScreen")" class="btn-precio-manual btn btn-warning mb-3">Precio manual</a>
                 }
-            <div class="input-group mb-4">
-                <input type="text" id="busquedaProductos" class="form-control rounded-pill text-center" placeholder="Toque para buscar productos...">
-            </div>
-                 <a href="#" class="btn btn-sm btn-primary open-modal" id="agregar-producto"
-                 data-url="@Url.Action("CreateParcial", "Producto", new { origen = ViewData["ModoPrecioManual"] != null && (bool)ViewData["ModoPrecioManual"] ? "preciomanual" : "index" })">
-                 Agregar Producto
+
+                <div class="input-group mb-4">
+                    <input type="text" id="busquedaProductos" class="form-control rounded-pill text-center" placeholder="Toque para buscar productos...">
+                </div>
+
+                <a href="#" class="btn btn-sm btn-primary open-modal" id="agregar-producto"
+                   data-url='@Url.Action("CreateParcial", "Producto", new { origen = (ViewData["ModoPrecioManual"] != null && (bool)ViewData["ModoPrecioManual"]) ? "preciomanual" : "index" })'>
+                   Agregar Producto
                 </a>
-        </div>
+            </div>
 
             <div class="tabla-wrapper">
                 <table class="table table-striped table-hover table-bordered" id="productTable">
-
                     <thead class="table-white">
                         <tr>
                             <th>Código</th>
@@ -37,38 +39,46 @@
                             <th>Stock</th>
                             <th>Precio Unitario</th>
                             <th>Proveedor</th>
+                            <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr class="fila-producto">
-                            <td>@Html.DisplayFor(modelItem => item.CodigoDeBarra)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Categoria)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Stock)</td>
-                            <td>@Html.DisplayFor(modelItem => item.PrecioUnitario)</td>
-                            <td>@item.ProveedorNavigation?.Nombre</td>
-                            <td class="acciones">
-                                <a href="#" class="btn btn-sm btn-primary open-modal"
-                                data-url="@Url.Action("EditParcial", "Producto", new { id = item.IdProducto, origen = ViewData["ModoPrecioManual"] != null && (bool)ViewData["ModoPrecioManual"] ? "preciomanual" : "index" })">
-                                Editar
-                                </a>
-                                <a href="#" class="btn btn-sm btn-danger open-modal"
-                                data-url="@Url.Action("DeleteParcial", "Producto", new { id = item.IdProducto, origen = ViewData["ModoPrecioManual"] != null && (bool)ViewData["ModoPrecioManual"] ? "preciomanual" : "index" })">
-                                Eliminar
-                                </a>
-                                
-                            </td>
-                        </tr>
-                    }
+                        @foreach (var item in Model)
+                        {
+                            <tr class="fila-producto">
+                                <td>@Html.DisplayFor(modelItem => item.CodigoDeBarra)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Categoria)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Stock)</td>
+                                <td>@Html.DisplayFor(modelItem => item.PrecioUnitario)</td>
+                                <td>@item.ProveedorNavigation?.Nombre</td>
+                                <td>@(item.Estado.HasValue && item.Estado.Value ? "Activo" : "Inactivo")</td>
+                                <td class="acciones">
+                                    <a href="#" class="btn btn-sm btn-primary open-modal"
+                                       data-url='@Url.Action("EditParcial", "Producto", new { id = item.IdProducto, origen = (ViewData["ModoPrecioManual"] != null && (bool)ViewData["ModoPrecioManual"]) ? "preciomanual" : "index" })'>
+                                       Editar
+                                    </a>
+                                    <form id="form-toggle-@item.IdProducto" method="post" 
+                                          action='@Url.Action("ToggleEstado", "Producto", new { id = item.IdProducto, origen = (ViewData["ModoPrecioManual"] != null && (bool)ViewData["ModoPrecioManual"]) ? "preciomanual" : "index" })' 
+                                          style="display:none;">
+                                        @Html.AntiForgeryToken()
+                                    </form>
+
+                                    <a href="#" class="btn btn-sm btn-danger"
+                                       onclick="document.getElementById('form-toggle-@item.IdProducto').submit(); return false;">
+                                       @(item.Estado.HasValue && item.Estado.Value ? "Desactivar" : "Activar")
+                                    </a>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+
 
 
     <!-- Modal Bootstrap -->
