@@ -69,15 +69,15 @@ namespace MiniMercado.Controllers
             }
             else
             {
-                 bool existeCodigo = await _context.Producto
-            .AnyAsync(p => p.CodigoDeBarra == producto.CodigoDeBarra);
+                bool existeCodigo = await _context.Producto
+           .AnyAsync(p => p.CodigoDeBarra == producto.CodigoDeBarra);
 
                 if (existeCodigo)
                 {
                     ModelState.AddModelError("CodigoDeBarra", "El código de barra ya está en uso.");
                 }
             }
-            
+
 
             if (ModelState.IsValid)
             {
@@ -243,15 +243,15 @@ namespace MiniMercado.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateParcial([Bind("IdProducto,CodigoDeBarra,Nombre,Categoria,PrecioUnitario,Stock,Proveedor,Estado,EsPrecioManual")] Producto producto)
         {
-             if (producto.EsPrecioManual)
+            if (producto.EsPrecioManual)
             {
                 producto.PrecioUnitario = null;
                 producto.Stock = null;
             }
             else
             {
-                 bool existeCodigo = await _context.Producto
-                .AnyAsync(p => p.CodigoDeBarra == producto.CodigoDeBarra);
+                bool existeCodigo = await _context.Producto
+               .AnyAsync(p => p.CodigoDeBarra == producto.CodigoDeBarra);
 
                 if (existeCodigo)
                 {
@@ -260,7 +260,7 @@ namespace MiniMercado.Controllers
                     return View(producto);
                 }
             }
-            
+
             if (ModelState.IsValid)
             {
                 _context.Add(producto);
@@ -287,6 +287,11 @@ namespace MiniMercado.Controllers
             }
             ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre", producto.Proveedor);
             ViewData["Origen"] = origen; //
+            ViewData["EstadoOpciones"] = new SelectList(new List<SelectListItem>
+                {
+                    new SelectListItem { Value = "true", Text = "Activar" },
+                    new SelectListItem { Value = "false", Text = "Desactivar" }
+                }, "Value", "Text");
             return PartialView(producto);
         }
 
@@ -328,8 +333,38 @@ namespace MiniMercado.Controllers
             }
             ViewData["Proveedor"] = new SelectList(_context.Proveedor, "IdProveedor", "Nombre", producto.Proveedor);
 
+            ViewData["EstadoOpciones"] = new SelectList(new List<SelectListItem>
+            {
+                new SelectListItem { Value = "true", Text = "Sí" },
+                new SelectListItem { Value = "false", Text = "No" }
+            }, "Value", "Text");
+
             return View(producto);
         }
+        
+        [HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> ToggleEstado(int id, string origen)
+{
+    var producto = await _context.Producto.FindAsync(id);
+    if (producto == null)
+    {
+        return NotFound();
+    }
+
+    // Cambia el estado al valor contrario
+    producto.Estado = !producto.Estado;
+
+    _context.Update(producto);
+    await _context.SaveChangesAsync();
+
+    // Redirige según el valor de 'origen'
+    return origen switch
+    {
+         "preciomanual" => RedirectToAction("PrecioManual", "StockScreen"),
+        _ => RedirectToAction("Index", "StockScreen") // <--- CAMBIADO AQUÍ
+    };
+}
 
 
 

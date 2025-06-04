@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MiniMercado.Data;
 using MiniMercado.Models;
+using MiniMercado.Controllers; 
+using System.Runtime.InteropServices; 
+
 
 namespace MiniMercado.Controllers
 {
@@ -30,14 +33,17 @@ namespace MiniMercado.Controllers
             }
             else if (!mostrarTodas)
             {
-                var hoy = DateTime.Today;
-                facturas = facturas.Where(f => f.Fecha.HasValue && f.Fecha.Value.Date == hoy);
+                var hoyArgentina = FechaHelper.ObtenerHoraArgentina().Date;
+                facturas = facturas.Where(f => f.Fecha.HasValue && f.Fecha.Value.Date == hoyArgentina);
             }
+
 
             var lista = facturas.OrderByDescending(f => f.Fecha).ToList();
 
             ViewData["MostrarTodas"] = mostrarTodas;
-            ViewData["FechaFiltro"] = fechaFiltro?.ToString("yyyy-MM-dd");
+            var fechaFiltroFormateada = (fechaFiltro ?? FechaHelper.ObtenerHoraArgentina()).ToString("dd-MM-yyyy");
+            ViewData["FechaFiltro"] = fechaFiltroFormateada;
+
 
             return View(lista);
         }
@@ -48,4 +54,8 @@ namespace MiniMercado.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
+
+
+
+    
 }
