@@ -62,6 +62,7 @@ namespace MiniMercado.Controllers
         {
             if (ModelState.IsValid)
             {
+                factura.Fecha = FechaHelper.ObtenerHoraArgentina(); // Setear la hora actual de Argentina
                 _context.Add(factura);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

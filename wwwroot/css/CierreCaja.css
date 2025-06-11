@@ -4,6 +4,7 @@
     background-color: rgb(255, 255, 255);
     border-radius: 1rem;
     box-shadow: .0625rem 0rem .625rem .25rem #00000024;
+    width: 72rem;
   }
   
   .text-center {
@@ -83,7 +84,7 @@
     vertical-align: middle;
     border-color: #CBD5E1;
     background-color: #ffffff;
-    width: 55rem;
+    width: 100%;
     font-size: 0.9rem;
     --bs-table-striped-bg: rgba(0, 0, 0, 0.0);
     --bs-table-hover-bg: rgba(0, 0, 0, 0.0);

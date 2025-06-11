@@ -80,7 +80,7 @@ namespace MiniMercado.Controllers
 
             var factura = new Factura
             {
-                Fecha = DateTime.Now,
+                Fecha = FechaHelper.ObtenerHoraArgentina(),
                 FormaPago = formaPago,
                 Total = productos.Sum(p => p.PrecioUnitario * p.Cantidad),
                 DetalleFacturas = new List<DetalleFactura>()
