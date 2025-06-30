@@ -6,4 +6,6 @@ bin/
 obj/
 .vs/
 
+Properties/
+
 # git rm -r --cached bin/ obj/ .vs/ appsettings.json appsettings.Development.json
