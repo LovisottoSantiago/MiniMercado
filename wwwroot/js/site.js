@@ -2,7 +2,7 @@
 $('input').attr('autocomplete','off');
 
 
-document.addEventListener("DOMContentLoaded", function () {
+/*document.addEventListener("DOMContentLoaded", function () { //pegado en stock.js
 
     const searchInput = document.getElementById("busquedaProductos");
     const rows = document.querySelectorAll("#productTable tbody tr");
@@ -24,8 +24,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+*/
 
-document.addEventListener("DOMContentLoaded", function () {
+/*document.addEventListener("DOMContentLoaded", function () {
     const filas = document.querySelectorAll(".fila-producto");
 
     filas.forEach(fila => {
@@ -42,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-});
+});*/
 
 
 function acortarNombre(nombre, maxLength = 17) {
@@ -589,58 +590,6 @@ function recargarTablaProductos() {
 
 
 
-   document.addEventListener("DOMContentLoaded", function() {
-    const categoriaSelect = document.getElementById("categoriaSelect");
-    const btnCrearCategoria = document.getElementById("btnCrearCategoria");
-    if (typeof categorias === 'undefined') {
-        var categorias = [];
-    }
 
-
-
-    fetch('/StockScreen/GetCategorias?t=' + new Date().getTime())
-        .then(response => response.json())
-        .then(data => {
-            categorias = data;
-            renderizarCategorias();
-        })
-        .catch(error => console.error("Error al cargar categorías:", error));
-
-    function renderizarCategorias() {
-        categoriaSelect.innerHTML = "";
-        categorias.forEach(categoria => {
-            const option = document.createElement("option");
-            option.value = categoria.nombre;
-            option.textContent = categoria.nombre;
-            categoriaSelect.appendChild(option);
-        });
-    }
-    btnCrearCategoria.addEventListener("click", () => {
-        const nuevaCategoria = prompt("Ingrese el nombre de la nueva categoría:");
-        if (!nuevaCategoria) return;
-
-        fetch("/StockScreen/AgregarCategoria", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(nuevaCategoria)
-        })
-        .then(response => {
-            if (!response.ok) {
-                return response.text().then(text => { throw new Error(text); });
-            }
-            // Si la categoría se agregó correctamente, recargar categorías
-            return fetch('/StockScreen/GetCategorias?t=' + new Date().getTime());
-        })
-        .then(response => response.json())
-        .then(data => {
-            categorias = data;
-            renderizarCategorias(); // vuelve a renderizar el select con la nueva categoría incluida
-        })
-        .catch(error => showAlert("Error al agregar la categoría: " + error.message));
-    });
-
-});
 
 
